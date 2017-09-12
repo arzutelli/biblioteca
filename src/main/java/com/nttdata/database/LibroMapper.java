@@ -18,7 +18,7 @@ public interface LibroMapper {
 	@Select("select * from Libro where idLibro = #{idLibro}")
 	Libro findByIdLibro(@Param("idLibro") int idLibro);
 
-	@Insert("insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (#{idLibro},#{titolo}, #{genere}, #{prezzo}, #{scaffale})")
+	@Insert("insert into Libro (titolo, genere, prezzo, scaffale) values (#{titolo}, #{genere}, #{prezzo}, #{scaffale})")
 	@Options(useGeneratedKeys = true, keyProperty = "idLibro")
 	int add(Libro libro);
 

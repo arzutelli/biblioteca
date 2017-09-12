@@ -28,51 +28,67 @@ drop table if exists Libro;
 
 create table Libro (idLibro bigint auto_increment primary key , titolo varchar, genere varchar, prezzo decimal, scaffale varchar);
 
-insert into Libro (titolo, genere, prezzo, scaffale) values ('Orgoglio e Pregiudizio', 'Romanzo', 23, 1);
-insert into Libro (titolo, genere, prezzo, scaffale) values ('Il Signore degli Anelli', 'Fantasy', 28, 6);
-insert into Libro (titolo, genere, prezzo, scaffale) values ('Il Profeta', 'Poesia', 18, 2);
-insert into Libro (titolo, genere, prezzo, scaffale) values ('Se questo è un uomo', 'Memorialistico', 20, 3);
-insert into Libro (titolo, genere, prezzo, scaffale) values ('Cime Tempestose', 'Romanzo', 16, 1);
-insert into Libro (titolo, genere, prezzo, scaffale) values ('1984', 'Romanzo', 35, 1);
-insert into Libro (titolo, genere, prezzo, scaffale) values ('I Promessi Sposi', 'Romanzo', 13, 1);
-insert into Libro (titolo, genere, prezzo, scaffale) values ('Odissea', 'Epica', 14.45, 4);
-insert into Libro (titolo, genere, prezzo, scaffale) values ('Orlando Furioso', 'Epica', 28, 4);
-insert into Libro (titolo, genere, prezzo, scaffale) values ('La Divina Commedia', 'Classici antichi', 28, 5);
-insert into Libro (titolo, genere, prezzo, scaffale) values ('Amleto', 'Classici antichi', 20, 5);
-insert into Libro (titolo, genere, prezzo, scaffale) values ('La storia infinita', 'Fantasy', 28, 6);
-insert into Libro (titolo, genere, prezzo, scaffale) values ('Ubik', 'Fantascienza', 39.87, 7);
-insert into Libro (titolo, genere, prezzo, scaffale) values ('Dune', 'Fantascienza', 12.63, 7);
-insert into Libro (titolo, genere, prezzo, scaffale) values ('Dove porta il fiume', 'Avventura', 16.80, 8);
-insert into Libro (titolo, genere, prezzo, scaffale) values ('Tarzan delle scimmie', 'Avventura', 18.50, 8);
-insert into Libro (titolo, genere, prezzo, scaffale) values ('Suttree', 'Opere moderne', 31.35, 9);
-insert into Libro (titolo, genere, prezzo, scaffale) values ('Ragtime', 'Opere moderne', 40.98, 9);
-insert into Libro (titolo, genere, prezzo, scaffale) values ('Il giorno della civetta', 'Poliziesco', 50.99, 10);
-insert into Libro (titolo, genere, prezzo, scaffale) values ('Uno studio in rosso', 'Poliziesco', 9.99, 10);
+insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (1,'Orgoglio e Pregiudizio', 'Romanzo', 23, 1);
+insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (2,'Il Signore degli Anelli', 'Fantasy', 28, 6);
+insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (3,'Il Profeta', 'Poesia', 18, 2);
+insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (4,'Se questo è un uomo', 'Memorialistico', 20, 3);
+insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (5,'Cime Tempestose', 'Romanzo', 16, 1);
+insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (6,'1984', 'Romanzo', 35, 1);
+insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (7,'I Promessi Sposi', 'Romanzo', 13, 1);
+insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (8,'Odissea', 'Epica', 14.45, 4);
+insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (9,'Orlando Furioso', 'Epica', 28, 4);
+insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (10,'La Divina Commedia', 'Classici antichi', 28, 5);
+insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (11,'Amleto', 'Classici antichi', 20, 5);
+insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (12,'La storia infinita', 'Fantasy', 28, 6);
+insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (13,'Ubik', 'Fantascienza', 39.87, 7);
+insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (14,'Dune', 'Fantascienza', 12.63, 7);
+insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (15,'Dove porta il fiume', 'Avventura', 16.80, 8);
+insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (16,'Tarzan delle scimmie', 'Avventura', 18.50, 8);
+insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (17,'Suttree', 'Opere moderne', 31.35, 9);
+insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (18,'Ragtime', 'Opere moderne', 40.98, 9);
+insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (19,'Il giorno della civetta', 'Poliziesco', 50.99, 10);
+insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (20,'Uno studio in rosso', 'Poliziesco', 9.99, 10);
 
 
 drop table if exists Autore;
 
 create table Autore (idAutore bigint auto_increment primary key , nome varchar, cognome varchar, email varchar);
 
-insert into Autore (nome, cognome, email) values ('Jane', 'Austen', 'jane.austen@autore.com');
-insert into Autore (nome, cognome, email) values ('John', 'Tolkien', 'john.tolkien@autore.com');
-insert into Autore (nome, cognome, email) values ('Khalil', 'Gibran', 'khalil.gibran@autore.com');
-insert into Autore (nome, cognome, email) values ('Primo', 'Levi', 'primo.levi@autore.com');
-insert into Autore (nome, cognome, email) values ('Emily', 'Bronë', 'emily.bronte@autore.com');
-insert into Autore (nome, cognome, email) values ('George', 'Orwell', 'george.orwell@autore.com');
-insert into Autore (nome, cognome, email) values ('Alessandro', 'Manzoni', '@autore.com');
-insert into Autore (nome, cognome, email) values ('Clive', 'Cussler', 'clive.cussler@autore.com');
-insert into Autore (nome, cognome, email) values ('Ludovico', 'Ariosto', 'ludovico.ariosto@autore.com');
-insert into Autore (nome, cognome, email) values ('Dante', 'Alighieri', 'dante.alighieri@autore.com');
-insert into Autore (nome, cognome, email) values ('William', 'Shakespeare', 'william.shakespeare@autore.com');
-insert into Autore (nome, cognome, email) values ('Michael', 'Ende', 'michael.ende@autore.com');
-insert into Autore (nome, cognome, email) values ('Philip', 'Kindred', 'philip.kindred@autore.com');
-insert into Autore (nome, cognome, email) values ('Frank', 'Herbert', 'frank.herbert@autore.com');
-insert into Autore (nome, cognome, email) values ('James', 'Lafayette', 'james.lafayette@autore.com');
-insert into Autore (nome, cognome, email) values ('Edgar', 'Rice', 'edgar.rice@autore.com');
-insert into Autore (nome, cognome, email) values ('Cormac', 'McCarthy', 'cormac.mccarthy@autore.com');
-insert into Autore (nome, cognome, email) values ('Edgar', 'Lawrence', 'edgar.lawrence@autore.com');
-insert into Autore (nome, cognome, email) values ('Leonardo', 'Sciascia', 'leonardo.sciascia@autore.com');
-insert into Autore (nome, cognome, email) values ('Arthur', 'Conan', 'arthur.conan@autore.com');
+insert into Autore (idAutore,nome, cognome, email) values (1,'Jane', 'Austen', 'jane.austen@autore.com');
+insert into Autore (idAutore,nome, cognome, email) values (2,'John', 'Tolkien', 'john.tolkien@autore.com');
+insert into Autore (idAutore,nome, cognome, email) values (3,'Khalil', 'Gibran', 'khalil.gibran@autore.com');
+insert into Autore (idAutore,nome, cognome, email) values (4,'Primo', 'Levi', 'primo.levi@autore.com');
+insert into Autore (idAutore,nome, cognome, email) values (5,'Emily', 'Bronë', 'emily.bronte@autore.com');
+insert into Autore (idAutore,nome, cognome, email) values (6,'George', 'Orwell', 'george.orwell@autore.com');
+insert into Autore (idAutore,nome, cognome, email) values (7,'Alessandro', 'Manzoni', '@autore.com');
+insert into Autore (idAutore,nome, cognome, email) values (8,'Clive', 'Cussler', 'clive.cussler@autore.com');
+insert into Autore (idAutore,nome, cognome, email) values (9,'Ludovico', 'Ariosto', 'ludovico.ariosto@autore.com');
+insert into Autore (idAutore,nome, cognome, email) values (10,'Dante', 'Alighieri', 'dante.alighieri@autore.com');
+insert into Autore (idAutore,nome, cognome, email) values (11,'William', 'Shakespeare', 'william.shakespeare@autore.com');
+insert into Autore (idAutore,nome, cognome, email) values (12,'Michael', 'Ende', 'michael.ende@autore.com');
+insert into Autore (idAutore,nome, cognome, email) values (13,'Philip', 'Kindred', 'philip.kindred@autore.com');
+insert into Autore (idAutore,nome, cognome, email) values (14,'Frank', 'Herbert', 'frank.herbert@autore.com');
+insert into Autore (idAutore,nome, cognome, email) values (15,'James', 'Lafayette', 'james.lafayette@autore.com');
+insert into Autore (idAutore,nome, cognome, email) values (16,'Edgar', 'Rice', 'edgar.rice@autore.com');
+insert into Autore (idAutore,nome, cognome, email) values (17,'Cormac', 'McCarthy', 'cormac.mccarthy@autore.com');
+insert into Autore (idAutore,nome, cognome, email) values (18,'Edgar', 'Lawrence', 'edgar.lawrence@autore.com');
+insert into Autore (idAutore,nome, cognome, email) values (19,'Leonardo', 'Sciascia', 'leonardo.sciascia@autore.com');
+insert into Autore (idAutore,nome, cognome, email) values (20,'Arthur', 'Conan', 'arthur.conan@autore.com');
+
+
+
+drop table if exists AutoreLibro;
+
+create table AutoreLibro (idAutore bigint not null, idLibro bigint not null);
+alter table AutoreLibro add primary key(idAutore, idLibro);
+
+alter table AutoreLibro add foreign key(idAutore) references Autore(idAutore);
+alter table AutoreLibro add foreign key(idLibro) references Libro(idLibro);
+
+
+insert into AutoreLibro (idAutore, idLibro) values (1,3);
+insert into AutoreLibro (idAutore, idLibro) values (1,4);
+insert into AutoreLibro (idAutore, idLibro) values (2,2);
+insert into AutoreLibro (idAutore, idLibro) values (3,5);
 
 
