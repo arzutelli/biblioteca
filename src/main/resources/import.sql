@@ -28,6 +28,8 @@ drop table if exists Libro;
 
 create table Libro (idLibro bigint auto_increment primary key , titolo varchar, genere varchar, prezzo decimal, scaffale varchar);
 
+alter table add foreign key (badgeId) references users (badgeId);
+
 insert into Libro (titolo, genere, prezzo, scaffale) values ('Orgoglio e Pregiudizio', 'Romanzo', 23, 1);
 insert into Libro (titolo, genere, prezzo, scaffale) values ('Il Signore degli Anelli', 'Fantasy', 28, 6);
 insert into Libro (titolo, genere, prezzo, scaffale) values ('Il Profeta', 'Poesia', 18, 2);
@@ -50,3 +52,23 @@ insert into Libro (titolo, genere, prezzo, scaffale) values ('Il giorno della ci
 insert into Libro (titolo, genere, prezzo, scaffale) values ('Uno studio', 'Poliziesco', 9.99, 10);
 
 
+--Creazione tabella telefoni
+
+drop table if exists telefoni;
+
+create table telefoni (idCell bigint auto_increment primary key, numero varchar, tipo varchar);
+insert into telefoni (numero, tipo) values ('1234567890', 'cell');
+insert into telefoni (numero, tipo) values ('3467457711', 'cell');
+insert into telefoni (numero, tipo) values ('0290600377', 'casa');
+insert into telefoni (numero, tipo) values ('3526272884', 'ufficio');
+
+
+--Creazioe tabella noleggio
+
+drop table if exists noleggio;
+
+create table noleggio (idNoleggio bigint auto_increment primary key, badgeId varchar, idLibro number, dataPrelievo varchar, dataConsegna varchar)
+insert into noleggio (badgeId, idLibro, dataPrelievo, dataConsegna) values ('1', 34, '20/09/17', '20/10/17')
+insert into noleggio (badgeId, idLibro, dataPrelievo, dataConsegna) values ('34', 2, '31/10/17', '1/12/17')
+insert into noleggio (badgeId, idLibro, dataPrelievo, dataConsegna) values ('12', 45, '1/01/18', '31/01/18')
+insert into noleggio (badgeId, idLibro, dataPrelievo, dataConsegna) values ('56', 123, '2/08/17', '1/09/17')

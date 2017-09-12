@@ -32,7 +32,7 @@ public class TelefoniController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/telefono/{idCell}")
 	public Telefoni get(@PathVariable(value = "idCell", required = true) int idCell) {
-		Telefoni telefono = TelefonoMapper.findByidCell(idCell);
+		Telefoni telefono = telefonoMapper.findByIdCell(idCell);
 		if (telefono != null)
 			return telefono;
 		else
@@ -43,7 +43,7 @@ public class TelefoniController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/telefono")
 	public Telefoni add(@RequestBody Telefoni telefono) {
-		Telefoni foundTelefoni = TelefonoMapper.findByIdCell(telefono.getIdCell());
+		Telefoni foundTelefoni = telefonoMapper.findByIdCell(telefono.getIdCell());
 		if (foundTelefoni != null)
 			throw new ResourceConflictException();
 
@@ -53,7 +53,7 @@ public class TelefoniController {
 	
 	@RequestMapping(method = RequestMethod.PUT, value = "/telefono/{idCell}")
 	public Telefoni update(@RequestBody Telefoni telefono, @PathVariable(value = "idCell", required = true) int idCell) {
-		Telefoni foundTelefoni = TelefonoMapper.findByIdCell(idCell);
+		Telefoni foundTelefoni = telefonoMapper.findByIdCell(idCell);
 		if (foundTelefoni == null)
 			throw new NoContentException();
 
@@ -64,7 +64,7 @@ public class TelefoniController {
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/telefono/{idCell}")
 	public void delete(@PathVariable(value = "idCell", required = true) int idCell) {
-		Telefoni foundTelefoni = TelefonoMapper.findByIdCell (idCell);
+		Telefoni foundTelefoni = telefonoMapper.findByIdCell (idCell);
 		if (foundTelefoni == null)
 			throw new NoContentException();
 		telefonoMapper.delete(idCell);

@@ -16,17 +16,17 @@ import com.nttdata.model.Telefoni;
 public interface TelefonoMapper {
 	
 	@Select("select * from Telefoni where idCell = #{idCell}")
-	Telefoni findByIdCell(@Param("idCell") int idCell);
+	Telefoni findByIdCell(@Param("idCell") int idCell) ;
 
-	@Insert("insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (#{idLibro},#{titolo}, #{genere}, #{prezzo}, #{scaffale})")
-	@Options(useGeneratedKeys = true, keyProperty = "idLibro")
+	@Insert("insert into telefoni (numero, tipo) values (#{numero}, #{tipo})")
+	@Options(useGeneratedKeys = true, keyProperty = "idCell")
 	int add(Telefoni telefono);
 
 	@Delete("delete Telefoni where idCell = #{idCell}")
 	int delete(@Param("idCell") int idCell);
 
-	@Update("update Libro set numero = #{numero}," + " tipo = #{tipo}," +
-	" where idCell = #{idLibro}")
+	@Update("update Telefoni set numero = #{numero}," + " tipo = #{tipo}," +
+	" where idCell = #{idCell}")
 	int update(Telefoni telefono);
 
 	@Select("select * from Telefoni")
