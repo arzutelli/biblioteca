@@ -31,9 +31,9 @@ public class IndirizziController {
 			return findAll;
 		}
 		
-		@RequestMapping(method = RequestMethod.GET, value = "/indirizzi/{badgeId}")
-		public Indirizzi get(@PathVariable(value = "badgeId", required = true) String badgeId) {
-			Indirizzi indirizzi = indirizziMapper.findByBadgeId(badgeId);
+		@RequestMapping(method = RequestMethod.GET, value = "/indirizzi/{idIndirizzi}")
+		public Indirizzi get(@PathVariable(value = "idIndirizzi", required = true) int idIndirizzi) {
+			Indirizzi indirizzi = indirizziMapper.findByIdIndirizzi(idIndirizzi);
 			if (indirizzi != null)
 				return indirizzi;
 			else
@@ -42,7 +42,7 @@ public class IndirizziController {
 		
 		@RequestMapping(method = RequestMethod.POST, value = "/indirizzi")
 		public Indirizzi add(@RequestBody Indirizzi indirizzi) {
-			Indirizzi foundIndirizzi = indirizziMapper.findByBadgeId(indirizzi.getBadgeId());
+			Indirizzi foundIndirizzi = indirizziMapper.findByIdIndirizzi(indirizzi.getIdIndirizzi());
 			if (foundIndirizzi != null)
 				throw new ResourceConflictException();
 
@@ -51,23 +51,23 @@ public class IndirizziController {
 		}
 		
 		
-		@RequestMapping(method = RequestMethod.PUT, value = "/indirizzi/{badgeId}")
-		public Indirizzi update(@RequestBody Indirizzi indirizzi, @PathVariable(value = "badgeId", required = true) String badgeId) {
-		Indirizzi foundIndirizzi = indirizziMapper.findByBadgeId (badgeId);
+		@RequestMapping(method = RequestMethod.PUT, value = "/indirizzi/{idIndirizzi}")
+		public Indirizzi update(@RequestBody Indirizzi indirizzi, @PathVariable(value = "idIndirizzi", required = true) int idIndirizzi) {
+		Indirizzi foundIndirizzi = indirizziMapper.findByIdIndirizzi (idIndirizzi);
 			if (foundIndirizzi == null)
 				throw new NoContentException();
 
-			indirizzi.setBadgeId(badgeId);
+			indirizzi.setIdIndirizzi(idIndirizzi);
 			indirizziMapper.update(indirizzi);
 			return indirizzi;
 		}
 		
-		@RequestMapping(method = RequestMethod.DELETE, value = "/indirizzi/{badgeId}")
-		public void delete(@PathVariable(value = "badgeId", required = true) String badgeId) {
-			Indirizzi foundIndirizzi = indirizziMapper.findByBadgeId (badgeId);
+		@RequestMapping(method = RequestMethod.DELETE, value = "/indirizzi/{idIndirizzi}")
+		public void delete(@PathVariable(value = "idIndirizzi", required = true) int idIndirizzi) {
+			Indirizzi foundIndirizzi = indirizziMapper.findByIdIndirizzi (idIndirizzi);
 			if (foundIndirizzi == null)
 				throw new NoContentException();
-			indirizziMapper.delete(badgeId);
+			indirizziMapper.delete(idIndirizzi);
 		}
 	
 

@@ -15,7 +15,7 @@ import com.nttdata.model.Telefoni;
 @Mapper
 public interface TelefonoMapper {
 	
-	@Select("select * from Telefoni where idCell = #{idCell}")
+	@Select("select * from Telefoni where badgeId #{idCell}")
 	Telefoni findByIdCell(@Param("idCell") int idCell) ;
 
 	@Insert("insert into telefoni (numero, tipo) values (#{numero}, #{tipo})")

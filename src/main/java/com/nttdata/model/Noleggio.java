@@ -6,7 +6,7 @@ public class Noleggio implements Serializable {
 
 	
 
-	private String badgeId;
+	private String idUtente;
 	private String idLibro;
 	private String dataPrelievo;
 	private String dataConsegna;
@@ -22,12 +22,12 @@ public class Noleggio implements Serializable {
 		this.idNoleggio = idNoleggio;
 	}
 
-	public String getBadgeId() {
-		return badgeId;
+	public String getIdUtente() {
+		return idUtente;
 	}
 
-	public void setBadgeId(String badgeId) {
-		this.badgeId = badgeId;
+	public void setIdUtente(String idUtente) {
+		this.idUtente = idUtente;
 	}
 
 	public String getIdLibro() {
@@ -57,7 +57,7 @@ public class Noleggio implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Noleggio [badgeId=" + badgeId + ", idLibro=" + idLibro + ", dataPrelievo=" + dataPrelievo
+		return "Noleggio [idUtente=" + idUtente + ", idLibro=" + idLibro + ", dataPrelievo=" + dataPrelievo
 				+ ", dataConsegna=" + dataConsegna + ", idNoleggio=" + idNoleggio + "]";
 	}
 	

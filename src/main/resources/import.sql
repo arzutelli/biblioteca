@@ -26,9 +26,9 @@ insert into users (name, surname, email) values ('Mario', 'Rossi', 'mario.rossi@
 
 drop table if exists Libro;
 
-create table Libro (idLibro bigint auto_increment primary key , titolo varchar, genere varchar, prezzo decimal, scaffale varchar);
+create table Libro (idLibro bigint auto_increment primary key , titolo varchar, genere varchar, prezzo decimal, scaffale varchar, idUser bigint);
 
-alter table add foreign key (badgeId) references users (badgeId);
+alter table Libro add foreign key (idUser) references users (badgeId);
 
 insert into Libro (titolo, genere, prezzo, scaffale) values ('Orgoglio e Pregiudizio', 'Romanzo', 23, 1);
 insert into Libro (titolo, genere, prezzo, scaffale) values ('Il Signore degli Anelli', 'Fantasy', 28, 6);
@@ -56,31 +56,33 @@ insert into Libro (titolo, genere, prezzo, scaffale) values ('Uno studio', 'Poli
 
 drop table if exists telefoni;
 
-create table telefoni (idCell bigint auto_increment primary key, numero varchar, tipo varchar);
-insert into telefoni (numero, tipo) values ('1234567890', 'cell');
-insert into telefoni (numero, tipo) values ('3467457711', 'cell');
-insert into telefoni (numero, tipo) values ('0290600377', 'casa');
-insert into telefoni (numero, tipo) values ('3526272884', 'ufficio');
+create table telefoni (idCell bigint auto_increment primary key, idUtente varchar, numero varchar, tipo varchar);
+alter table telefoni add foreign key (idUtente) references users (badgeId);
+
+insert into telefoni (idUtente, numero, tipo) values ('1', '1234567890', 'cell');
+insert into telefoni (idUtente, numero, tipo) values ('2', '3467457711', 'cell');
+insert into telefoni (idUtente, numero, tipo) values ('2', '0290600377', 'casa');
+insert into telefoni (idUtente, numero, tipo) values ('1', '3526272884', 'ufficio');
 
 
 --Creazioe tabella noleggio
 
 drop table if exists noleggio;
 
-create table noleggio (idNoleggio bigint auto_increment primary key, badgeId varchar, idLibro number, dataPrelievo varchar, dataConsegna varchar)
-insert into noleggio (badgeId, idLibro, dataPrelievo, dataConsegna) values ('1', 34, '20/09/17', '20/10/17')
-insert into noleggio (badgeId, idLibro, dataPrelievo, dataConsegna) values ('34', 2, '31/10/17', '1/12/17')
-insert into noleggio (badgeId, idLibro, dataPrelievo, dataConsegna) values ('12', 45, '1/01/18', '31/01/18')
-insert into noleggio (badgeId, idLibro, dataPrelievo, dataConsegna) values ('56', 123, '2/08/17', '1/09/17')
+create table noleggio (idNoleggio bigint auto_increment primary key, idUtente varchar, idLibro number, dataPrelievo varchar, dataConsegna varchar);
+insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('1', 34, '20/09/17', '20/10/17');
+insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('2', 2, '31/10/17', '1/12/17');
+insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('2', 45, '1/01/18', '31/01/18');
+insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('1', 123, '2/08/17', '1/09/17');
 
 
 --Creazione tabella indirizzi
 
 drop table if exists indirizzi;
 
-create table indirizzi (badgeId bigint, via varchar, citta varchar, provincia varchar, cap varchar);
+create table indirizzi (idIndirizzi bigint auto_increment primary key, idUtente varchar, via varchar, citta varchar, provincia varchar, cap varchar);
 
-alter table add foreign key (badgeId) references users (badgeId);
+alter table indirizzi add foreign key (idUtente) references users (badgeId);
 
-insert into indirizzi (badgeId, via, citta, provincia, cap) values (1, 'via solferino 2', 'pantigliate', 'MI', '20090');
-insert into indirizzi (badgeId, via, citta, provincia, cap) values (2, 'via carro maggiore 6', 'mombretto', 'MI', '20060');
+insert into indirizzi (idUtente, via, citta, provincia, cap) values ('1', 'via solferino 2', 'pantigliate', 'MI', '20090');
+insert into indirizzi (idUtente, via, citta, provincia, cap) values ('2', 'via carro maggiore 6', 'mombretto', 'MI', '20060');

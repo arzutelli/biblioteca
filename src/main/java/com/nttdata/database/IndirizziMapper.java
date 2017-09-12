@@ -13,23 +13,22 @@ import org.apache.ibatis.annotations.Update;
 import com.nttdata.model.Indirizzi;
 
 @Mapper
-
 public interface IndirizziMapper {
 	
-	@Select("select * from Indirizzi where badgeId = #{badgeId}")
-	Indirizzi findByBadgeId(@Param("badgeId") String badgeId) ;
+	@Select("select * from Indirizzi where IdIndirizzi = #{idIndirizzi}")
+	Indirizzi findByIdIndirizzi (@Param("idIndirizzi") int idIndirizzi) ;
 
-	@Insert("insert into Indirizzi (badgeID, via, citta, provicnia, cap) values (#{badgeId}, #{via}, #{citta}, #{provicnia}, #{cap}")
-	@Options(useGeneratedKeys = true, keyProperty = "badgeId")
-	String add(Indirizzi indirizzi);
+	@Insert("insert into Indirizzi (idUtente, via, citta, provincia, cap) values (#{idUtente}, #{via}, #{citta}, #{provincia}, #{cap})")
+	@Options(useGeneratedKeys = true, keyProperty = "idIndirizzi")
+	int add(Indirizzi indirizzi);
 
-	@Delete("delete Indirizzi where badgeId = #{badgeId}")
-	String delete(@Param("badgeId") String badgeId);
+	@Delete("delete Indirizzi where idIndirizzi = #{idIndirizzi}")
+	int delete(@Param("idIndirizzi") int idIndirizzi);
 
-	@Update("update Indirizzi set  via = #{via}," + "citta = #{citta}" + 
+	@Update("update Indirizzi set  idUtente = #{idUtente}" + "via = #{via}," + "citta = #{citta}" + 
 	"provincia = #{provincia}" + "cap = #{cap}" +  
-	" where badgeId = #{badgeId}")
-	String update(Indirizzi indirizzi);
+	" where idIndirizzi = #{idIndirizzi}")
+	int update(Indirizzi indirizzi);
 
 	@Select("select * from Indirizzi")
 	List<Indirizzi> findAll();

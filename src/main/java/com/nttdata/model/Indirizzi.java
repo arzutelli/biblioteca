@@ -4,18 +4,29 @@ import java.io.Serializable;
 
 public class Indirizzi implements Serializable{
 	
-	private String badgeId;
+	private static final long serialVersionUID = 1L;
+	
+	private String idUtente;
+	private int idIndirizzi;
 	private String via;
 	private String citta;
 	private String provincia;
 	private String cap;
 
-	public String getBadgeId() {
-		return badgeId;
+	public int getIdIndirizzi() {
+		return idIndirizzi;
 	}
 
-	public void setBadgeId(String badgeId) {
-		this.badgeId = badgeId;
+	public void setIdIndirizzi(int idIndirizzi ) {
+		this.idIndirizzi = idIndirizzi;
+	}
+	
+	public String getIdUtente() {
+		return idUtente;
+	}
+	
+	public void setIdIdUtente(String idUtente) {
+		this.idUtente = idUtente;
 	}
 
 	public String getVia() {
@@ -54,8 +65,10 @@ public class Indirizzi implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "Indirizzi [badgeId=" + badgeId + ", via=" + via + ", citta=" + citta + ", provincia=" + provincia
-				+ ", cap=" + cap + "]";
+		return "Indirizzi [idUtente=" + idUtente + ", idIndirizzi=" + idIndirizzi + ", via=" + via + ", citta=" + citta
+				+ ", provincia=" + provincia + ", cap=" + cap + "]";
 	}
+
+
 	
 }
