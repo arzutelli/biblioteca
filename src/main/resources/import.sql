@@ -72,3 +72,15 @@ insert into noleggio (badgeId, idLibro, dataPrelievo, dataConsegna) values ('1',
 insert into noleggio (badgeId, idLibro, dataPrelievo, dataConsegna) values ('34', 2, '31/10/17', '1/12/17')
 insert into noleggio (badgeId, idLibro, dataPrelievo, dataConsegna) values ('12', 45, '1/01/18', '31/01/18')
 insert into noleggio (badgeId, idLibro, dataPrelievo, dataConsegna) values ('56', 123, '2/08/17', '1/09/17')
+
+
+--Creazione tabella indirizzi
+
+drop table if exists indirizzi;
+
+create table indirizzi (badgeId bigint, via varchar, citta varchar, provincia varchar, cap varchar);
+
+alter table add foreign key (badgeId) references users (badgeId);
+
+insert into indirizzi (badgeId, via, citta, provincia, cap) values (1, 'via solferino 2', 'pantigliate', 'MI', '20090');
+insert into indirizzi (badgeId, via, citta, provincia, cap) values (2, 'via carro maggiore 6', 'mombretto', 'MI', '20060');

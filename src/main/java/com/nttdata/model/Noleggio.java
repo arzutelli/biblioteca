@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class Noleggio implements Serializable {
 
+	
+
 	private String badgeId;
 	private String idLibro;
 	private String dataPrelievo;
@@ -51,5 +53,12 @@ public class Noleggio implements Serializable {
 	public void setDataConsegna(String dataConsegna) {
 		this.dataConsegna = dataConsegna;
 	}
+	
 
+	@Override
+	public String toString() {
+		return "Noleggio [badgeId=" + badgeId + ", idLibro=" + idLibro + ", dataPrelievo=" + dataPrelievo
+				+ ", dataConsegna=" + dataConsegna + ", idNoleggio=" + idNoleggio + "]";
+	}
+	
 }
