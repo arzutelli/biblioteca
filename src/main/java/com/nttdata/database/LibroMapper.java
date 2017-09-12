@@ -18,15 +18,18 @@ public interface LibroMapper {
 	@Select("select * from Libro where idLibro = #{idLibro}")
 	Libro findByIdLibro(@Param("idLibro") int idLibro);
 
-	@Insert("insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (#{idLibro},#{titolo}, #{genere}, #{prezzo}, #{scaffale})")
+	@Insert("insert into Libro (titolo, genere, prezzo, scaffale) values (#{titolo}, #{genere}, #{prezzo}, #{scaffale})")
 	@Options(useGeneratedKeys = true, keyProperty = "idLibro")
 	int add(Libro libro);
 
 	@Delete("delete Libro where idLibro = #{idLibro}")
 	int delete(@Param("idLibro") int idLibro);
 
-	@Update("update Libro set titolo = #{titolo}," + " genere = #{genere}," + " prezzo = #{prezzo},"
-			+ "scaffale = #{scaffale}," + " where idLibro = #{idLibro}")
+	@Update("update Libro set titolo = #{titolo},"
+				+ " genere = #{genere},"
+				+ " prezzo = #{prezzo},"
+				+ " scaffale = #{scaffale}"
+				+ " where idLibro = #{idLibro}")
 	int update(Libro libro);
 
 	@Select("select * from Libro")
