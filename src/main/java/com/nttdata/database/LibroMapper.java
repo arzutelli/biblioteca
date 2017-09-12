@@ -25,8 +25,11 @@ public interface LibroMapper {
 	@Delete("delete Libro where idLibro = #{idLibro}")
 	int delete(@Param("idLibro") int idLibro);
 
-	@Update("update Libro set titolo = #{titolo}," + " genere = #{genere}," + " prezzo = #{prezzo},"
-			+ "scaffale = #{scaffale}," + " where idLibro = #{idLibro}")
+	@Update("update Libro set titolo = #{titolo},"
+				+ " genere = #{genere},"
+				+ " prezzo = #{prezzo},"
+				+ " scaffale = #{scaffale}"
+				+ " where idLibro = #{idLibro}")
 	int update(Libro libro);
 
 	@Select("select * from Libro")
