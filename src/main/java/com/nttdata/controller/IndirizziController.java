@@ -23,9 +23,9 @@ public class IndirizziController {
 		private IndirizziMapper indirizziMapper;
 		
 		
-		@RequestMapping(method = RequestMethod.GET, value = "/indirizzi")
-		public List<Indirizzi> listLibr() {
-			List<Indirizzi> findAll = indirizziMapper.findAll();
+		@RequestMapping(method = RequestMethod.GET, value = "user/{badgeId}/indirizzi")
+		public List<Indirizzi> listIndirizzo(@PathVariable(value = "badgeId", required = true) int badgeId) {
+			List<Indirizzi> findAll = indirizziMapper.findAll(badgeId);
 			if (findAll != null && findAll.isEmpty())
 				throw new ResourceNotFoundException();
 			return findAll;

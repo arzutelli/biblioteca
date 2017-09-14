@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.nttdata.model.Autore;
+import com.nttdata.model.Libro;
 
 
 @Mapper
@@ -32,7 +33,10 @@ public interface AutoreMapper {
 			+ " where idAutore = #{idAutore}")
 	int update(Autore autore);
 
-	@Select("select * from Autore")
+	@Select("select * from Libro")
 	List<Autore> findAll();
+	
+	@Select("select l.* from Libro l,AutoreLibro al where l.idLibro = al.idLibro and  al.idAutore = #{idAutore} ")
+	List<Libro> findLibri(@Param("idAutore") int idAutore);
 
 }

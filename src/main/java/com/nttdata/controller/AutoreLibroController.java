@@ -1,7 +1,5 @@
 package com.nttdata.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,10 +8,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nttdata.database.AutoreLibroMapper;
-import com.nttdata.exception.BadRequestException;
+import com.nttdata.database.AutoreMapper;
 import com.nttdata.exception.NoContentException;
 import com.nttdata.exception.ResourceConflictException;
 import com.nttdata.exception.ResourceNotFoundException;
+import com.nttdata.model.Autore;
 import com.nttdata.model.AutoreLibro;
 
 
@@ -23,26 +22,16 @@ public class AutoreLibroController {
 	@Autowired
 	private AutoreLibroMapper autoreLibroMapper;
 
-	@RequestMapping(method = RequestMethod.GET, value = "/autoreLibro")
-	public List<AutoreLibro> listAutore() {
-		List<AutoreLibro> findAll = autoreLibroMapper.findAll();
-		if (findAll != null && findAll.isEmpty())
-			throw new ResourceNotFoundException();
-		return findAll;
-	}
-
-	@RequestMapping(method = RequestMethod.GET, value = "/autoreLibro/{idAutore}")
-	public AutoreLibro get(@PathVariable(value = "idAutore", required = true) int idAutore) {
-		AutoreLibro autoreLibro = autoreLibroMapper.findByIdAutore(idAutore);
-		if (autoreLibro != null)
-			return autoreLibro;
-		else
-			throw new ResourceNotFoundException();
-	}
-
-	@RequestMapping(method = RequestMethod.POST, value = "/autoreLibro")
-	public AutoreLibro add(@RequestBody AutoreLibro autoreLibro) {
+	@Autowired
+	private AutoreMapper autoreMapper;
 	
+	
+	
+	@RequestMapping(method = RequestMethod.POST, value = "autore/{idAutore}/autoreLibro")
+	public AutoreLibro add(@RequestBody AutoreLibro autoreLibro,@PathVariable(value = "idAutore", required = true) int idAutore) {
+		
+		
+		
 		AutoreLibro foundAutoreLibro = autoreLibroMapper.findByIdAutoreIdLibro(autoreLibro.getIdAutore(),
 				autoreLibro.getIdLibro());
 		if (foundAutoreLibro != null)
@@ -52,13 +41,21 @@ public class AutoreLibroController {
 		return autoreLibro;
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE, value = "/autoreLibro/{idAutore}/{idLibro}")
+	@RequestMapping(method = RequestMethod.DELETE, value = "autore/{idAutore}/autoreLibro/{idLibro}")
 	public void delete(@PathVariable(value = "idAutore", required = true) int idAutore,
 			@PathVariable(value = "idLibro", required = true) int idLibro) {
 		AutoreLibro foundAutoreLibro = autoreLibroMapper.findByIdAutoreIdLibro(idAutore, idLibro);
 		if (foundAutoreLibro == null)
 			throw new NoContentException();
 		autoreLibroMapper.delete(idAutore, idLibro);
+	}
+
+	public AutoreMapper getAutoreMapper() {
+		return autoreMapper;
+	}
+
+	public void setAutoreMapper(AutoreMapper autoreMapper) {
+		this.autoreMapper = autoreMapper;
 	}
 	
 

@@ -24,13 +24,13 @@ public class NoleggioController {
 	private NoleggioMapper noleggioMapper;
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/noleggio")
-	public List<Noleggio> listLibr() {
+	public List<Noleggio> listNoleggio() {
 		List<Noleggio> findAll = noleggioMapper.findAll();
 		if (findAll != null && findAll.isEmpty())
 			throw new ResourceNotFoundException();
 		return findAll;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/noleggio/{idNoleggio}")
 	public Noleggio get(@PathVariable(value = "idNoleggio", required = true) int idNoleggio) {
 		Noleggio noleggio = noleggioMapper.findByIdNoleggio(idNoleggio);

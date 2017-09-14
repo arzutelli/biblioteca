@@ -27,15 +27,13 @@ public interface NoleggioMapper {
 	@Delete("delete Noleggio where idNoleggio = #{idNoleggio}")
 	int delete(@Param("idNoleggio") int idNoleggio);
 
-	@Update("update Noleggio set idUtente = #{idUtente},"
-			+ " idLibro = #{idLibro},"
+	@Update("update Noleggio set"
 			+ "dataPrelievo = #{dataPrelievo},"
 			+ "dataConsegna = #{dataConsegna}" + 
-			" where idNoleggio = #{idNoleggio}")
+			" where idNoleggio = #{idNoleggio} AND idUtente = #{idUtente} AND idLibro = #{idLibro}")
 	int update(Noleggio noleggio);
 
 	@Select("select * from Noleggio")
 	List<Noleggio> findAll();
-
 
 }

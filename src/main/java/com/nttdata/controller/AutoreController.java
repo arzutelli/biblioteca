@@ -16,6 +16,7 @@ import com.nttdata.exception.NoContentException;
 import com.nttdata.exception.ResourceConflictException;
 import com.nttdata.exception.ResourceNotFoundException;
 import com.nttdata.model.Autore;
+import com.nttdata.model.Libro;
 
 
 @RestController
@@ -24,7 +25,7 @@ public class AutoreController {
 	@Autowired
 	private AutoreMapper autoreMapper;
 
-	@RequestMapping(method = RequestMethod.GET, value = "/autore")
+	@RequestMapping(method = RequestMethod.GET, value = "autore/")
 	public List<Autore> listAutore() {
 		List<Autore> findAll = autoreMapper.findAll();
 		if (findAll != null && findAll.isEmpty())
@@ -75,6 +76,14 @@ public class AutoreController {
 		if (foundAutore == null)
 			throw new NoContentException();
 		autoreMapper.delete(idAutore);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "autore/{idAutore}/libro")
+	public List<Libro> listLibro(@PathVariable(value = "idAutore", required = true) int idAutore) {
+		List<Libro> findAll = autoreMapper.findLibri(idAutore);
+		if (findAll != null && findAll.isEmpty())
+			throw new ResourceNotFoundException();
+		return findAll;
 	}
 	
 private boolean validateAutore(Autore autore) {
