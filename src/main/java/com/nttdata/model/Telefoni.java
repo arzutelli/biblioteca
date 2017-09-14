@@ -6,18 +6,19 @@ public class Telefoni implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private int idCell;
+	private String idUtente;
+	private String numero;
+	private String tipo;
 	
-	public int getIdCell() {
+	
+		public int getIdCell() {
 		return idCell;
 	}
 
 	public void setIdCell(int idCell) {
 		this.idCell = idCell;
 	}
-
-	private String idUtente;
-	private String numero;
-	private String tipo;
+	
 	
 	public String getIdUtente() {
 		return idUtente;

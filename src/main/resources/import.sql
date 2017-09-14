@@ -111,7 +111,9 @@ insert into telefoni (idUtente, numero, tipo) values ('1', '3526272884', 'uffici
 
 drop table if exists noleggio;
 
-create table noleggio (idNoleggio bigint auto_increment primary key, idUtente varchar, idLibro number, dataPrelievo varchar, dataConsegna varchar);
+alter table noleggio add foreign key (idUtente) references users (badgeId);
+
+create table noleggio (idNoleggio bigint auto_increment primary key, idUtente varchar, idLibro bigint, dataPrelievo varchar, dataConsegna varchar);
 insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('1', 34, '20/09/17', '20/10/17');
 insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('2', 2, '31/10/17', '1/12/17');
 insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('2', 45, '1/01/18', '31/01/18');
@@ -122,7 +124,7 @@ insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('1'
 
 drop table if exists indirizzi;
 
-create table indirizzi (idIndirizzi bigint auto_increment primary key, idUtente varchar, via varchar, citta varchar, provincia varchar, cap varchar);
+create table indirizzi (idIndirizzi bigint auto_increment primary key, idUtente varchar not null, via varchar, citta varchar, provincia varchar, cap varchar);
 
 alter table indirizzi add foreign key (idUtente) references users (badgeId);
 

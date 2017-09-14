@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class Noleggio implements Serializable {
 
-	
 
+	private static final long serialVersionUID = 1L;
 	private String idUtente;
 	private String idLibro;
 	private String dataPrelievo;

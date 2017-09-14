@@ -17,19 +17,21 @@ import com.nttdata.model.Noleggio;
 public interface NoleggioMapper {
 	
 
-	@Select("select * from Telefoni where idNoleggio = #{idNoleggio}")
+	@Select("select * from Noleggio where idNoleggio = #{idNoleggio}")
 	Noleggio findByIdNoleggio(@Param("idNoleggio") int idNoleggio) ;
 
-	@Insert("insert into noleggio (badgeID, idLibro, dataPrelievo, dataConsegna) values (#{badgeId}, #{idLibro}, #{dataPrelievo}, #{dataConsegna}")
+	@Insert("insert into Noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values (#{idUtente}, #{idLibro}, #{dataPrelievo}, #{dataConsegna})")
 	@Options(useGeneratedKeys = true, keyProperty = "idNoleggio")
 	int add(Noleggio noleggio);
 
 	@Delete("delete Noleggio where idNoleggio = #{idNoleggio}")
 	int delete(@Param("idNoleggio") int idNoleggio);
 
-	@Update("update Noleggio set badgeId = #{badgeId}," + " idLibro = #{idLibro}," + "dataPrelievo = #{dataPrelievo}" + 
-	"dataConsegna = #{dataConsegna}" + 
-	" where idCell = #{idCell}")
+	@Update("update Noleggio set idUtente = #{idUtente},"
+			+ " idLibro = #{idLibro},"
+			+ "dataPrelievo = #{dataPrelievo},"
+			+ "dataConsegna = #{dataConsegna}" + 
+			" where idNoleggio = #{idNoleggio}")
 	int update(Noleggio noleggio);
 
 	@Select("select * from Noleggio")

@@ -15,17 +15,17 @@ import com.nttdata.model.Telefoni;
 @Mapper
 public interface TelefonoMapper {
 	
-	@Select("select * from Telefoni where badgeId #{idCell}")
+	@Select("select * from Telefoni where idCell = #{idCell}")
 	Telefoni findByIdCell(@Param("idCell") int idCell) ;
 
-	@Insert("insert into telefoni (numero, tipo) values (#{numero}, #{tipo})")
+	@Insert("insert into Telefoni (idUtente, numero, tipo) values (#{idUtente}, #{numero}, #{tipo})")
 	@Options(useGeneratedKeys = true, keyProperty = "idCell")
 	int add(Telefoni telefono);
 
 	@Delete("delete Telefoni where idCell = #{idCell}")
 	int delete(@Param("idCell") int idCell);
 
-	@Update("update Telefoni set numero = #{numero}," + " tipo = #{tipo}," +
+	@Update("update Telefoni set numero = #{numero}," + " tipo = #{tipo}" +
 	" where idCell = #{idCell}")
 	int update(Telefoni telefono);
 
