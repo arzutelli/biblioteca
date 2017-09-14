@@ -42,12 +42,7 @@ public class AutoreLibroController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/autoreLibro")
 	public AutoreLibro add(@RequestBody AutoreLibro autoreLibro) {
-		
-
-		if (!validateAutoreLibro(autoreLibro)) {
-			throw new BadRequestException();
-		}
-		
+	
 		AutoreLibro foundAutoreLibro = autoreLibroMapper.findByIdAutoreIdLibro(autoreLibro.getIdAutore(),
 				autoreLibro.getIdLibro());
 		if (foundAutoreLibro != null)
@@ -66,15 +61,5 @@ public class AutoreLibroController {
 		autoreLibroMapper.delete(idAutore, idLibro);
 	}
 	
-private boolean validateAutoreLibro(AutoreLibro autoreLibro) {
-    	
-	//	if(NumberUtils.(autoreLibro.getIdLibro())
-		//	return false; 
-	//	if(StringUtils.(autoreLibro.getIdLibro()))
-		//	return false;
-
-		
-		return true;
-	}
 
 }
