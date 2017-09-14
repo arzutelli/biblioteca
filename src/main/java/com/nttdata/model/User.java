@@ -10,7 +10,7 @@ public class User implements Serializable{
 	private String name;
 	private String surname;
 	private String email;
-	private String badgeId;
+	private int badgeId;
 
 
 
@@ -32,10 +32,10 @@ public class User implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getBadgeId() {
+	public int getBadgeId() {
 		return badgeId;
 	}
-	public void setBadgeId(String badgeId) {
+	public void setBadgeId(int badgeId) {
 		this.badgeId = badgeId;
 	}
 	

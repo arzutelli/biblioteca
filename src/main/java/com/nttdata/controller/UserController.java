@@ -31,7 +31,7 @@ public class UserController {
     }
     
     @RequestMapping(method= RequestMethod.GET, value="/user/{badgeId}")
-    public User get(@PathVariable(value="badgeId", required=true) String badgeId) {
+    public User get(@PathVariable(value="badgeId", required=true) int badgeId) {
         User user = userMapper.findByBadgeId(badgeId);
         if(user != null)
         	return user;
@@ -50,7 +50,7 @@ public class UserController {
     }
     
     @RequestMapping(method= RequestMethod.PUT, value="/user/{badgeId}")
-    public User update(@RequestBody User user,@PathVariable(value="badgeId", required=true) String badgeId) {
+    public User update(@RequestBody User user,@PathVariable(value="badgeId", required=true) int badgeId) {
     	User foundUser = userMapper.findByBadgeId(badgeId);
     	if(foundUser == null)
     		throw new NoContentException();
@@ -61,7 +61,7 @@ public class UserController {
     }
     
     @RequestMapping(method= RequestMethod.DELETE, value="/user/{badgeId}")
-    public void delete(@PathVariable(value="badgeId", required=true) String badgeId) {
+    public void delete(@PathVariable(value="badgeId", required=true) int badgeId) {
     	User foundUser = userMapper.findByBadgeId(badgeId);
     	if(foundUser == null)
     		throw new NoContentException();

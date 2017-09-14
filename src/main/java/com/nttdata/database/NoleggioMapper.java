@@ -34,8 +34,10 @@ public interface NoleggioMapper {
 			" where idNoleggio = #{idNoleggio}")
 	int update(Noleggio noleggio);
 
-	@Select("select * from Noleggio")
-	List<Noleggio> findAll();
+	@Select("select * from Noleggio where idUtente = #{idUtente}")
+	List<Noleggio> findAllByUtente(@Param ("idUtente") int idUtente);
 
+	@Select("select * from Noleggio ")
+	List<Noleggio> findAll();
 
 }

@@ -25,11 +25,12 @@ public interface TelefonoMapper {
 	@Delete("delete Telefoni where idCell = #{idCell}")
 	int delete(@Param("idCell") int idCell);
 
-	@Update("update Telefoni set numero = #{numero}," + " tipo = #{tipo}" +
-	" where idCell = #{idCell}")
+	@Update("update Telefoni set numero = #{numero}," 
+	+ " tipo = #{tipo}" 
+	+	" where idCell = #{idCell} and idUtente = #{idUtente}")
 	int update(Telefoni telefono);
 
-	@Select("select * from Telefoni")
-	List<Telefoni> findAll();
+	@Select("select * from Telefoni where idUtente = #{idUtente}")
+	List<Telefoni> findAll(@Param ("idUtente") int idUtente);
 
 }
