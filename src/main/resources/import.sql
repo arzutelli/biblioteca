@@ -12,7 +12,6 @@
 --    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 --    See the License for the specific language governing permissions and
 --    limitations under the License.
---
 
 drop table if exists users;
 
@@ -90,5 +89,22 @@ insert into AutoreLibro (idAutore, idLibro) values (1,3);
 insert into AutoreLibro (idAutore, idLibro) values (1,4);
 insert into AutoreLibro (idAutore, idLibro) values (2,2);
 insert into AutoreLibro (idAutore, idLibro) values (3,5);
+insert into AutoreLibro (idAutore, idLibro) values (4,7);
+insert into AutoreLibro (idAutore, idLibro) values (5,8);
+insert into AutoreLibro (idAutore, idLibro) values (8,10);
+insert into AutoreLibro (idAutore, idLibro) values (10,20);
+insert into AutoreLibro (idAutore, idLibro) values (6,9);
+insert into AutoreLibro (idAutore, idLibro) values (11,6);
+insert into AutoreLibro (idAutore, idLibro) values (20,1);
+insert into AutoreLibro (idAutore, idLibro) values (16,19);
+insert into AutoreLibro (idAutore, idLibro) values (15,18);
+insert into AutoreLibro (idAutore, idLibro) values (13,17);
+insert into AutoreLibro (idAutore, idLibro) values (18,12);
+insert into AutoreLibro (idAutore, idLibro) values (19,11);
+insert into AutoreLibro (idAutore, idLibro) values (11,13);
+insert into AutoreLibro (idAutore, idLibro) values (14,15);
+insert into AutoreLibro (idAutore, idLibro) values (12,14);
+insert into AutoreLibro (idAutore, idLibro) values (17,16);
+insert into AutoreLibro (idAutore, idLibro) values (7,9);
 
 

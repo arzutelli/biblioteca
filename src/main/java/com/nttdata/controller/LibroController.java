@@ -1,7 +1,9 @@
 package com.nttdata.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nttdata.database.LibroMapper;
+import com.nttdata.exception.BadRequestException;
 import com.nttdata.exception.NoContentException;
 import com.nttdata.exception.ResourceConflictException;
 import com.nttdata.exception.ResourceNotFoundException;
@@ -40,6 +43,12 @@ public class LibroController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/libro")
 	public Libro add(@RequestBody Libro libro) {
+		
+	    if(!validateLibro(libro)){
+	        throw new BadRequestException();
+	        }
+
+		
 		Libro foundLibro = libroMapper.findByIdLibro(libro.getIdLibro());
 		if (foundLibro != null)
 			throw new ResourceConflictException();
@@ -66,5 +75,21 @@ public class LibroController {
 			throw new NoContentException();
 		libroMapper.delete(idLibro);
 	}
-
+	
+private boolean validateLibro(Libro libro) {
+    	
+		if(StringUtils.isBlank(libro.getTitolo()))
+			return false;
+		if(StringUtils.isBlank(libro.getGenere()))
+			return false;
+		if(libro.getPrezzo().compareTo(new BigDecimal(0))<=0)
+			return false;
+		if(StringUtils.isBlank(libro.getScaffale()))
+			return false;
+		
+		return true;
+	}
 }
+
+
+
