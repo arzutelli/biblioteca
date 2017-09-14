@@ -6,7 +6,7 @@ public class Telefoni implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private int idCell;
-	private String idUtente;
+	private int idUtente;
 	private String numero;
 	private String tipo;
 	
@@ -20,11 +20,11 @@ public class Telefoni implements Serializable{
 	}
 	
 	
-	public String getIdUtente() {
+	public int getIdUtente() {
 		return idUtente;
 	}
 	
-	public void setIdUtente(String idUtente) {
+	public void setIdUtente(int idUtente) {
 		this.idUtente=idUtente;
 	}
 

@@ -58,19 +58,20 @@ public class TelefoniController {
 		return telefono;
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT, value = "/telefono/{idCell}")
-	public Telefoni update(@RequestBody Telefoni telefono, @PathVariable(value = "idCell", required = true) int idCell) {
+	@RequestMapping(method = RequestMethod.PUT, value = "user/{badgeId}/telefono/{idCell}")
+	public Telefoni update(@RequestBody Telefoni telefono, @PathVariable(value = "idCell", required = true) int idCell,@PathVariable(value = "badgeId", required = true) int badgeId) {
 		Telefoni foundTelefoni = telefonoMapper.findByIdCell(idCell);
 		if (foundTelefoni == null)
-			throw new NoContentException();
+			throw new ResourceNotFoundException("Telefono che si sta cercando di cancellare non esiste");
 
 		telefono.setIdCell(idCell);
+		telefono.setIdUtente(badgeId);
 		telefonoMapper.update(telefono);
 		return telefono;
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE, value = "/telefono/{idCell}")
-	public void delete(@PathVariable(value = "idCell", required = true) int idCell) {
+	@RequestMapping(method = RequestMethod.DELETE, value = "user/{badgeId}/telefono/{idCell}")
+	public void delete(@PathVariable(value = "idCell", required = true) int idCell,@PathVariable(value = "badgeId", required = true) int badgeId) {
 		Telefoni foundTelefoni = telefonoMapper.findByIdCell (idCell);
 		if (foundTelefoni == null)
 			throw new NoContentException();
