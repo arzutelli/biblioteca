@@ -2,6 +2,7 @@ package com.nttdata.controller;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nttdata.database.AutoreMapper;
+import com.nttdata.exception.BadRequestException;
 import com.nttdata.exception.NoContentException;
 import com.nttdata.exception.ResourceConflictException;
 import com.nttdata.exception.ResourceNotFoundException;
 import com.nttdata.model.Autore;
+
 
 @RestController
 public class AutoreController {
@@ -34,13 +37,18 @@ public class AutoreController {
 		Autore autore = autoreMapper.findByIdAutore(idAutore);
 		if (autore != null)
 			return autore;
-		
+
 		else
 			throw new ResourceNotFoundException();
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/autore")
 	public Autore add(@RequestBody Autore autore) {
+
+		if (!validateAutore(autore)) {
+			throw new BadRequestException();
+		}
+
 		Autore foundAutore = autoreMapper.findByIdAutore(autore.getIdAutore());
 		if (foundAutore != null)
 			throw new ResourceConflictException();
@@ -50,7 +58,8 @@ public class AutoreController {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/autore/{idAutore}")
-	public Autore update(@RequestBody Autore autore, @PathVariable(value = "idAutore", required = true) String idAutore) {
+	public Autore update(@RequestBody Autore autore,
+			@PathVariable(value = "idAutore", required = true) String idAutore) {
 		Autore foundAutore = autoreMapper.findByIdAutore(idAutore);
 		if (foundAutore == null)
 			throw new NoContentException();
@@ -66,6 +75,18 @@ public class AutoreController {
 		if (foundAutore == null)
 			throw new NoContentException();
 		autoreMapper.delete(idAutore);
+	}
+	
+private boolean validateAutore(Autore autore) {
+    	
+		if(StringUtils.isBlank(autore.getNome()))
+			return false;
+		if(StringUtils.isBlank(autore.getCognome()))
+			return false;
+		if(StringUtils.isBlank(autore.getEmail()))
+			return false;
+
+		return true;
 	}
 
 }

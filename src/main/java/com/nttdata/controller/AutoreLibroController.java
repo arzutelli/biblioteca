@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nttdata.database.AutoreLibroMapper;
+import com.nttdata.exception.BadRequestException;
 import com.nttdata.exception.NoContentException;
 import com.nttdata.exception.ResourceConflictException;
 import com.nttdata.exception.ResourceNotFoundException;
 import com.nttdata.model.AutoreLibro;
+
 
 @RestController
 public class AutoreLibroController {
@@ -40,6 +42,7 @@ public class AutoreLibroController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/autoreLibro")
 	public AutoreLibro add(@RequestBody AutoreLibro autoreLibro) {
+	
 		AutoreLibro foundAutoreLibro = autoreLibroMapper.findByIdAutoreIdLibro(autoreLibro.getIdAutore(),
 				autoreLibro.getIdLibro());
 		if (foundAutoreLibro != null)
@@ -57,5 +60,6 @@ public class AutoreLibroController {
 			throw new NoContentException();
 		autoreLibroMapper.delete(idAutore, idLibro);
 	}
+	
 
 }
