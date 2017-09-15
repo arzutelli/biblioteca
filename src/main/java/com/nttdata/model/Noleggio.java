@@ -6,7 +6,7 @@ public class Noleggio implements Serializable {
 
 
 	private static final long serialVersionUID = 1L;
-	private String idUtente;
+	private int idUtente;
 	private String idLibro;
 	private String dataPrelievo;
 	private String dataConsegna;
@@ -22,11 +22,11 @@ public class Noleggio implements Serializable {
 		this.idNoleggio = idNoleggio;
 	}
 
-	public String getIdUtente() {
+	public int getIdUtente() {
 		return idUtente;
 	}
 
-	public void setIdUtente(String idUtente) {
+	public void setIdUtente(int idUtente) {
 		this.idUtente = idUtente;
 	}
 

@@ -81,8 +81,8 @@ public class NoleggioController {
 		return noleggio;
 	}
 	
-	@RequestMapping(method = RequestMethod.DELETE, value = "/noleggio/{idNoleggio}")
-	public void delete(@PathVariable(value = "idNoleggio", required = true) int idNoleggio) {
+	@RequestMapping(method = RequestMethod.DELETE, value = "usert/{badgeId}/noleggio/{idNoleggio}")
+	public void delete(@PathVariable(value = "idNoleggio", required = true) int idNoleggio, @PathVariable(value = "badgeId", required = true) int badgeId ) {
 		Noleggio foundNoleggio = noleggioMapper.findByIdNoleggio (idNoleggio);
 		if (foundNoleggio == null)
 			throw new NoContentException();
