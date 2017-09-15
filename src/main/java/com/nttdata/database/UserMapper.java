@@ -16,14 +16,14 @@ import com.nttdata.model.User;
 public interface UserMapper {
 
 	@Select("select * from users where badgeId = #{badgeId}")
-	User findByBadgeId(@Param("badgeId") String badgeId);
+	User findByBadgeId(@Param("badgeId") int badgeId);
 
 	@Insert("insert into users (name, surname, email) values (#{name},#{surname}, #{email})")
 	@Options(useGeneratedKeys = true, keyProperty="badgeId")
 	int add(User user);
 	
 	@Delete("delete users where badgeId = #{badgeId}")
-	int delete(@Param("badgeId") String badgeId);
+	int delete(@Param("badgeId") int badgeId);
 	
 	@Update("update users set name = #{name},"
 			+ " surname = #{surname},"

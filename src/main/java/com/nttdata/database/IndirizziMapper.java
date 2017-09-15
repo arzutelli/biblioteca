@@ -15,7 +15,7 @@ import com.nttdata.model.Indirizzi;
 @Mapper
 public interface IndirizziMapper {
 	
-	@Select("select * from Indirizzi where IdIndirizzi = #{idIndirizzi}")
+	@Select("select * from Indirizzi where idIndirizzi = #{idIndirizzi}")
 	Indirizzi findByIdIndirizzi (@Param("idIndirizzi") int idIndirizzi) ;
 
 	@Insert("insert into Indirizzi (idUtente, via, citta, provincia, cap) values (#{idUtente}, #{via}, #{citta}, #{provincia}, #{cap})")
@@ -29,11 +29,11 @@ public interface IndirizziMapper {
 			+ "via = #{via},"
 			+ "citta = #{citta},"
 			+ "provincia = #{provincia},"
-			+ "cap = #{cap}" +  
-			" where  idUtente = #{idUtente} and idIndirizzi = #{idIndirizzi}")
+			+ "cap = #{cap}"
+			+ " where idIndirizzi = #{idIndirizzi} and idUtente = #{idUtente}")
 	int update(Indirizzi indirizzi);
 
-	@Select("select * from Indirizzi where idUtente = #{idUtente}")
-	List<Indirizzi> findAll(@Param("idUtente") int idUtente);
+	@Select("select * from indirizzi")
+	List<Indirizzi> findAll(@Param("badgeId") int badgeId);
 
 }

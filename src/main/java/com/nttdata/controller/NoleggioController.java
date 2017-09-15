@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nttdata.database.NoleggioMapper;
+import com.nttdata.database.UserMapper;
 import com.nttdata.exception.NoContentException;
 import com.nttdata.exception.ResourceConflictException;
 import com.nttdata.exception.ResourceNotFoundException;
 import com.nttdata.model.Noleggio;
+import com.nttdata.model.User;
 
 
 @RestController
@@ -23,6 +25,9 @@ public class NoleggioController {
 	@Autowired
 	private NoleggioMapper noleggioMapper;
 	
+	@Autowired
+	private UserMapper usermapper;
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/noleggio")
 	public List<Noleggio> listNoleggio() {
 		List<Noleggio> findAll = noleggioMapper.findAll();
@@ -31,6 +36,21 @@ public class NoleggioController {
 		return findAll;
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "user/{badgeId}/noleggio")
+	public List<Noleggio> listTelefoni(@PathVariable (value = "badgeId", required = true)int badgeId) {
+		
+		User findByBadgeId = usermapper.findByBadgeId(badgeId);
+		if(findByBadgeId == null)
+			throw new ResourceNotFoundException();
+		
+		
+		List<Noleggio> findAll = noleggioMapper.findAllByUtente(badgeId);
+		if (findAll != null && findAll.isEmpty())
+			throw new ResourceNotFoundException();
+		return findAll;
+	}
+
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/noleggio/{idNoleggio}")
 	public Noleggio get(@PathVariable(value = "idNoleggio", required = true) int idNoleggio) {
 		Noleggio noleggio = noleggioMapper.findByIdNoleggio(idNoleggio);

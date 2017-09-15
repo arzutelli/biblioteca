@@ -19,6 +19,7 @@ import com.nttdata.model.Autore;
 import com.nttdata.model.Libro;
 
 
+
 @RestController
 public class AutoreController {
 
@@ -26,7 +27,7 @@ public class AutoreController {
 	private AutoreMapper autoreMapper;
 
 	@RequestMapping(method = RequestMethod.GET, value = "autore/")
-	public List<Autore> listAutore() {
+	public List<Autore> listAutore() {		
 		List<Autore> findAll = autoreMapper.findAll();
 		if (findAll != null && findAll.isEmpty())
 			throw new ResourceNotFoundException();
@@ -34,7 +35,7 @@ public class AutoreController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/autore/{idAutore}")
-	public Autore get(@PathVariable(value = "idAutore", required = true) String idAutore) {
+	public Autore get(@PathVariable(value = "idAutore", required = true) int idAutore) {
 		Autore autore = autoreMapper.findByIdAutore(idAutore);
 		if (autore != null)
 			return autore;
@@ -60,7 +61,7 @@ public class AutoreController {
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/autore/{idAutore}")
 	public Autore update(@RequestBody Autore autore,
-			@PathVariable(value = "idAutore", required = true) String idAutore) {
+			@PathVariable(value = "idAutore", required = true) int idAutore) {
 		Autore foundAutore = autoreMapper.findByIdAutore(idAutore);
 		if (foundAutore == null)
 			throw new NoContentException();
@@ -71,7 +72,7 @@ public class AutoreController {
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/autore/{idAutore}")
-	public void delete(@PathVariable(value = "idAutore", required = true) String idAutore) {
+	public void delete(@PathVariable(value = "idAutore", required = true) int idAutore) {
 		Autore foundAutore = autoreMapper.findByIdAutore(idAutore);
 		if (foundAutore == null)
 			throw new NoContentException();

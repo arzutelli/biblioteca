@@ -6,7 +6,7 @@ public class Indirizzi implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private String idUtente;
+	private int idUtente;
 	private int idIndirizzi;
 	private String via;
 	private String citta;
@@ -21,11 +21,11 @@ public class Indirizzi implements Serializable{
 		this.idIndirizzi = idIndirizzi;
 	}
 	
-	public String getIdUtente() {
+	public int getIdUtente() {
 		return idUtente;
 	}
 	
-	public void setIdIdUtente(String idUtente) {
+	public void setIdIdUtente(int idUtente) {
 		this.idUtente = idUtente;
 	}
 

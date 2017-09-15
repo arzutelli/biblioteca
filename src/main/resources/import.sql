@@ -133,6 +133,7 @@ drop table if exists noleggio;
 create table noleggio (idNoleggio bigint auto_increment primary key, idUtente varchar, idLibro bigint, dataPrelievo varchar, dataConsegna varchar);
 
 alter table noleggio add foreign key (idUtente) references users (badgeId);
+
 insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('1', 34, '20/09/17', '20/10/17');
 insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('2', 2, '31/10/17', '1/12/17');
 insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('2', 45, '1/01/18', '31/01/18');

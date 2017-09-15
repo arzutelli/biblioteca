@@ -18,14 +18,14 @@ import com.nttdata.model.Libro;
 public interface AutoreMapper {
 
 	@Select("select * from Autore where idAutore = #{idAutore}")
-	Autore findByIdAutore(@Param("idAutore") String idAutore);
+	Autore findByIdAutore(@Param("idAutore") int idAutore);
 
 	@Insert("insert into Autore ( nome, cognome, email) values (#{nome}, #{cognome}, #{email})")
 	@Options(useGeneratedKeys = true, keyProperty = "idAutore")
 	int add(Autore autore);
 
 	@Delete("delete Autore where idAutore = #{idAutore}")
-	int delete(@Param("idAutore") String idAutore);
+	int delete(@Param("idAutore") int idAutore);
 
 	@Update("update Autore set nome = #{nome},"
 			+ " cognome = #{cognome},"
@@ -33,7 +33,7 @@ public interface AutoreMapper {
 			+ " where idAutore = #{idAutore}")
 	int update(Autore autore);
 
-	@Select("select * from Libro")
+	@Select("select * from Autore")
 	List<Autore> findAll();
 	
 	@Select("select l.* from Libro l,AutoreLibro al where l.idLibro = al.idLibro and  al.idAutore = #{idAutore} ")

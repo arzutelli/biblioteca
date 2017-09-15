@@ -51,20 +51,22 @@ public class IndirizziController {
 		}
 		
 		
-		@RequestMapping(method = RequestMethod.PUT, value = "/indirizzi/{idIndirizzi}")
-		public Indirizzi update(@RequestBody Indirizzi indirizzi, @PathVariable(value = "idIndirizzi", required = true) int idIndirizzi) {
+		@RequestMapping(method = RequestMethod.PUT, value = "user/{badgeId}/indirizzi/{idIndirizzi}")
+		public Indirizzi update(@RequestBody Indirizzi indirizzi, @PathVariable(value = "idIndirizzi", required = true) int idIndirizzi, @PathVariable(value = "badgeId", required = true) int badgeId) {
 		Indirizzi foundIndirizzi = indirizziMapper.findByIdIndirizzi (idIndirizzi);
 			if (foundIndirizzi == null)
 				throw new NoContentException();
+			
+			indirizzi.setIdIdUtente(badgeId);
 
 			indirizzi.setIdIndirizzi(idIndirizzi);
 			indirizziMapper.update(indirizzi);
 			return indirizzi;
 		}
 		
-		@RequestMapping(method = RequestMethod.DELETE, value = "/indirizzi/{idIndirizzi}")
+		@RequestMapping(method = RequestMethod.DELETE, value = "user/{badgeId}/indirizzi/{idIndirizzi}")
 		public void delete(@PathVariable(value = "idIndirizzi", required = true) int idIndirizzi) {
-			Indirizzi foundIndirizzi = indirizziMapper.findByIdIndirizzi (idIndirizzi);
+			Indirizzi foundIndirizzi = indirizziMapper.findByIdIndirizzi(idIndirizzi);
 			if (foundIndirizzi == null)
 				throw new NoContentException();
 			indirizziMapper.delete(idIndirizzi);
