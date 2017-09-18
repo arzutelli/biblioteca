@@ -15,25 +15,24 @@ import com.nttdata.model.Indirizzi;
 @Mapper
 public interface IndirizziMapper {
 	
-	@Select("select * from Indirizzi where idIndirizzi = #{idIndirizzi}")
-	Indirizzi findByIdIndirizzi (@Param("idIndirizzi") int idIndirizzi) ;
+	@Select("select * from Indirizzi where idIndirizzi = #{idIndirizzi} AND idUtente = #{idUtente}")
+	Indirizzi findByIdIndirizzi (@Param("idIndirizzi") int idIndirizzi, @Param("idUtente") int idUtente);
 
-	@Insert("insert into Indirizzi (idUtente, via, citta, provincia, cap) values (#{idUtente}, #{via}, #{citta}, #{provincia}, #{cap})")
+	@Insert("insert into Indirizzi (idUtente, via, citta, provincia, cap) values (#{idUtente},#{via}, #{citta}, #{provincia}, #{cap})")
 	@Options(useGeneratedKeys = true, keyProperty = "idIndirizzi")
 	int add(Indirizzi indirizzi);
 
 	@Delete("delete Indirizzi where idIndirizzi = #{idIndirizzi}")
 	int delete(@Param("idIndirizzi") int idIndirizzi);
 
-	@Update("update Indirizzi set"
-			+ "via = #{via},"
+	@Update("update Indirizzi set via = #{via},"
 			+ "citta = #{citta},"
 			+ "provincia = #{provincia},"
 			+ "cap = #{cap}"
 			+ " where idIndirizzi = #{idIndirizzi} and idUtente = #{idUtente}")
 	int update(Indirizzi indirizzi);
 
-	@Select("select * from indirizzi")
-	List<Indirizzi> findAll(@Param("badgeId") int badgeId);
+	@Select("select * from Indirizzi where idUtente = #{idUtente}")
+	List<Indirizzi> findAll(@Param("idUtente") int idUtente);
 
 }

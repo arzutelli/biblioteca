@@ -25,6 +25,7 @@ public class AutoreController {
 
 	@Autowired
 	private AutoreMapper autoreMapper;
+	
 
 	@RequestMapping(method = RequestMethod.GET, value = "autore/")
 	public List<Autore> listAutore() {		
@@ -86,6 +87,7 @@ public class AutoreController {
 			throw new ResourceNotFoundException();
 		return findAll;
 	}
+	
 	
 private boolean validateAutore(Autore autore) {
     	

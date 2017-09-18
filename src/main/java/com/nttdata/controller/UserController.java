@@ -30,6 +30,7 @@ public class UserController {
 		return findAll;
     }
     
+    
     @RequestMapping(method= RequestMethod.GET, value="/user/{badgeId}")
     public User get(@PathVariable(value="badgeId", required=true) int badgeId) {
         User user = userMapper.findByBadgeId(badgeId);

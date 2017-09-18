@@ -17,7 +17,7 @@ public interface UserMapper {
 
 	@Select("select * from users where badgeId = #{badgeId}")
 	User findByBadgeId(@Param("badgeId") int badgeId);
-
+	
 	@Insert("insert into users (name, surname, email) values (#{name},#{surname}, #{email})")
 	@Options(useGeneratedKeys = true, keyProperty="badgeId")
 	int add(User user);

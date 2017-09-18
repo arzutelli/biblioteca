@@ -19,6 +19,9 @@ create table users (badgeId bigint auto_increment primary key , name varchar, su
 
 insert into users (name, surname, email) values ('Thomas', 'Loesch', 'thomas.loesch@nttdata.com');
 insert into users (name, surname, email) values ('Mario', 'Rossi', 'mario.rossi@gmail.com');
+insert into users (name, surname, email) values ('maynor', 'arzu', 'maynor.arzu@gmail.com');
+insert into users (name, surname, email) values ('antonio', 'daniele', 'antonio.daniele@gmail.com');
+insert into users (name, surname, email) values ('marco', 'polo', 'marco.polo@gmail.com');
 
 
 
@@ -150,3 +153,12 @@ alter table indirizzi add foreign key (idUtente) references users (badgeId);
 
 insert into indirizzi (idUtente, via, citta, provincia, cap) values ('1', 'via solferino 2', 'pantigliate', 'MI', '20090');
 insert into indirizzi (idUtente, via, citta, provincia, cap) values ('2', 'via carro maggiore 6', 'mombretto', 'MI', '20060');
+insert into indirizzi (idUtente, via, citta, provincia, cap) values ('2', 'via della repubblica 19', 'san giuliano', 'MI', '20098');
+insert into indirizzi (idUtente, via, citta, provincia, cap) values ('3', 'via alessandro manzoni 2', 'san giuliano', 'MI', '20098');
+insert into indirizzi (idUtente, via, citta, provincia, cap) values ('3', 'via cavour', 'san giuliano', 'MI', '20098');
+insert into indirizzi (idUtente, via, citta, provincia, cap) values ('3', 'via vincenzo 1', 'milano', 'MI', '20070');
+insert into indirizzi (idUtente, via, citta, provincia, cap) values ('2', 'via antonio daniele 2', 'napoli', 'NA', '18340');
+insert into indirizzi (idUtente, via, citta, provincia, cap) values ('1', 'via arzuino 34', 'riccione', 'RI', '37540');
+insert into indirizzi (idUtente, via, citta, provincia, cap) values ('4', 'via mario casas 12', 'san donato', 'MI', '20097');
+
+

@@ -36,7 +36,8 @@ public interface AutoreMapper {
 	@Select("select * from Autore")
 	List<Autore> findAll();
 	
-	@Select("select l.* from Libro l,AutoreLibro al where l.idLibro = al.idLibro and  al.idAutore = #{idAutore} ")
+	@Select("select l.* from Libro l,AutoreLibro al where l.idLibro = al.idLibro AND  al.idAutore = #{idAutore}")
 	List<Libro> findLibri(@Param("idAutore") int idAutore);
-
+	
+	
 }

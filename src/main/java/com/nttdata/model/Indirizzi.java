@@ -25,7 +25,7 @@ public class Indirizzi implements Serializable{
 		return idUtente;
 	}
 	
-	public void setIdIdUtente(int idUtente) {
+	public void setIdUtente(int idUtente) {
 		this.idUtente = idUtente;
 	}
 

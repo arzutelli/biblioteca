@@ -34,13 +34,13 @@ public class AutoreLibroController {
 			@PathVariable(value = "idAutore", required = true) int idAutore,
 			@PathVariable(value = "idLibro", required = true) int idLibro) {
 
-		Autore findByIdAutore = autoreMapper.findByIdAutore(idAutore);
-		if (findByIdAutore == null)
+		Autore foundByIdAutore = autoreMapper.findByIdAutore(idAutore);
+		if (foundByIdAutore == null)
 			throw new ResourceNotFoundException("l'autore non esiste");
 		
 
-		Libro findByIdLibro = libroMapper.findByIdLibro(idLibro);
-		if (findByIdLibro == null)
+		Libro foundByIdLibro = libroMapper.findByIdLibro(idLibro);
+		if (foundByIdLibro == null)
 			throw new ResourceNotFoundException("il libro non esiste");
 
 		AutoreLibro foundAutoreLibro = autoreLibroMapper.findByIdAutoreIdLibro(autoreLibro.getIdAutore(),
