@@ -15,21 +15,21 @@
 
 drop table if exists users;
 
-create table users (badgeId bigint auto_increment primary key , name varchar, surname varchar, email varchar);
+create table users (badgeId bigint auto_increment primary key , name varchar, surname varchar, email varchar, dataNascita date);
 
-insert into users (name, surname, email) values ('Thomas', 'Loesch', 'thomas.loesch@nttdata.com');
-insert into users (name, surname, email) values ('Mario', 'Rossi', 'mario.rossi@gmail.com');
-insert into users (name, surname, email) values ('Mario', 'Verdi', 'mario.verdi@gmail.com');
+insert into users (name, surname, email, dataNascita) values ('Thomas', 'Loesch', 'thomas.loesch@nttdata.com',PARSEDATETIME('03/09/1983','dd/MM/yyyy'));
+insert into users (name, surname, email, dataNascita) values ('Mario', 'Rossi', 'mario.rossi@gmail.com',PARSEDATETIME('28/11/1990','dd/MM/yyyy'));
+insert into users (name, surname, email, dataNascita) values ('Mario', 'Verdi', 'mario.verdi@gmail.com',PARSEDATETIME('13/01/1999','dd/MM/yyyy'));
 
 
 
 
 drop table if exists Libro;
 
-create table Libro (idLibro bigint auto_increment primary key , titolo varchar, genere varchar, prezzo decimal, scaffale varchar, idUser bigint);
+create table Libro (idLibro bigint auto_increment primary key , titolo varchar, genere varchar, prezzo decimal, scaffale varchar, idUser bigint); -- idUser a che serve???
 
 
-alter table Libro add foreign key (idUser) references users (badgeId);
+alter table Libro add foreign key (idUser) references users (badgeId); --????
 
 
 insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (1,'Orgoglio e Pregiudizio', 'Romanzo', 23, 1);
@@ -128,12 +128,10 @@ insert into telefoni (idUtente, numero, tipo) values ('1', '3526272884', 'uffici
 
 
 --Creazioe tabella noleggio
-
 drop table if exists noleggio;
-
 create table noleggio (idNoleggio bigint auto_increment primary key, idUtente varchar, idLibro bigint, dataPrelievo varchar, dataConsegna varchar);
-
 alter table noleggio add foreign key (idUtente) references users (badgeId);
+--Manca la foreign key con la tabella dei libri su idLibro
 
 insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('1', 34, '20/09/17', '20/10/17');
 insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('2', 2, '31/10/17', '1/12/17');
@@ -144,9 +142,7 @@ insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('1'
 --Creazione tabella indirizzi
 
 drop table if exists indirizzi;
-
 create table indirizzi (idIndirizzi bigint auto_increment primary key, idUtente varchar not null, via varchar, citta varchar, provincia varchar, cap varchar);
-
 alter table indirizzi add foreign key (idUtente) references users (badgeId);
 
 insert into indirizzi (idUtente, via, citta, provincia, cap) values ('1', 'via solferino 2', 'pantigliate', 'MI', '20090');
