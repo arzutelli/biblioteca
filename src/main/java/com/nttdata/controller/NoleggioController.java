@@ -29,13 +29,13 @@ public class NoleggioController {
 	private UserMapper usermapper;
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/noleggio")
-	public List<Noleggio> listLibr() {
+	public List<Noleggio> listNoleggio() {
 		List<Noleggio> findAll = noleggioMapper.findAll();
 		if (findAll != null && findAll.isEmpty())
 			throw new ResourceNotFoundException();
 		return findAll;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "user/{badgeId}/noleggio")
 	public List<Noleggio> listTelefoni(@PathVariable (value = "badgeId", required = true)int badgeId) {
 		

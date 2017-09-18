@@ -3,16 +3,16 @@ package com.nttdata.model;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class Autore {
-	private String idAutore;
+	private int idAutore;
 	private String nome;
 	private String cognome;
 	private String email;
 
-	public String getIdAutore() {
+	public int getIdAutore() {
 		return idAutore;
 	}
 
-	public void setIdAutore(String idAutore) {
+	public void setIdAutore(int idAutore) {
 		this.idAutore = idAutore;
 	}
 

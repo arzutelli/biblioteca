@@ -27,7 +27,9 @@ drop table if exists Libro;
 
 create table Libro (idLibro bigint auto_increment primary key , titolo varchar, genere varchar, prezzo decimal, scaffale varchar, idUser bigint);
 
+
 alter table Libro add foreign key (idUser) references users (badgeId);
+
 
 insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (1,'Orgoglio e Pregiudizio', 'Romanzo', 23, 1);
 insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (2,'Il Signore degli Anelli', 'Fantasy', 28, 6);
@@ -54,6 +56,7 @@ insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (20,'Uno st
 drop table if exists Autore;
 
 create table Autore (idAutore bigint auto_increment primary key , nome varchar, cognome varchar, email varchar);
+
 
 insert into Autore (idAutore,nome, cognome, email) values (1,'Jane', 'Austen', 'jane.austen@autore.com');
 insert into Autore (idAutore,nome, cognome, email) values (2,'John', 'Tolkien', 'john.tolkien@autore.com');
@@ -130,7 +133,6 @@ drop table if exists noleggio;
 create table noleggio (idNoleggio bigint auto_increment primary key, idUtente varchar, idLibro bigint, dataPrelievo varchar, dataConsegna varchar);
 
 alter table noleggio add foreign key (idUtente) references users (badgeId);
-
 
 insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('1', 34, '20/09/17', '20/10/17');
 insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('2', 2, '31/10/17', '1/12/17');
