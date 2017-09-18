@@ -1,8 +1,11 @@
 package com.nttdata.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class User implements Serializable{
 
@@ -11,6 +14,9 @@ public class User implements Serializable{
 	private String surname;
 	private String email;
 	private int badgeId;
+	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")
+	private Date dataNascita;
 
 
 
@@ -42,5 +48,11 @@ public class User implements Serializable{
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+	public Date getDataNascita() {
+		return dataNascita;
+	}
+	public void setDataNascita(Date dataNascita) {
+		this.dataNascita = dataNascita;
 	}
 }
