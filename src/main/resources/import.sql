@@ -15,10 +15,10 @@
 
 drop table if exists users;
 
-create table users (badgeId bigint auto_increment primary key , name varchar, surname varchar, email varchar);
+create table users (badgeId bigint auto_increment primary key , name varchar, surname varchar, email varchar, dataNascita date);
 
-insert into users (name, surname, email) values ('Thomas', 'Loesch', 'thomas.loesch@nttdata.com');
-insert into users (name, surname, email) values ('Mario', 'Rossi', 'mario.rossi@gmail.com');
+insert into users (name, surname, email, dataNascita) values ('Thomas', 'Loesch', 'thomas.loesch@nttdata.com', PARSEDATETIME('12/04/1990','dd/MM/yyyy'));
+insert into users (name, surname, email, dataNascita) values ('Mario', 'Rossi', 'mario.rossi@gmail.com', PARSEDATETIME('20/09/1995','dd/MM/yyyy'));
 
 
 
@@ -130,16 +130,15 @@ insert into telefoni (idUtente, numero, tipo) values ('1', '3526272884', 'uffici
 
 drop table if exists noleggio;
 
-create table noleggio (idNoleggio bigint auto_increment primary key, idUtente varchar, idLibro bigint, dataPrelievo varchar, dataConsegna varchar);
+create table noleggio (idNoleggio bigint auto_increment primary key, idUtente varchar, idLibro bigint, dataPrelievo date, dataConsegna date);
 
 alter table noleggio add foreign key (idUtente) references users (badgeId);
 
-insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('1', 34, '20/09/17', '20/10/17');
-insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('2', 2, '31/10/17', '1/12/17');
-insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('2', 45, '1/01/18', '31/01/18');
-insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('1', 123, '2/08/17', '1/09/17');
-
-
+insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('1', 34, PARSEDATETIME('20/09/2017','dd/MM/yyyy'), PARSEDATETIME('20/10/17','dd/MM/yyyy'));
+insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('2', 2, PARSEDATETIME('31/10/17', 'dd/MM/yyyy'),PARSEDATETIME('1/12/17','dd/MM/yyyy'));
+insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('2', 45, PARSEDATETIME('1/01/18', 'dd/MM/yyyy'),PARSEDATETIME('31/01/18','dd/MM/yyyy'));
+insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('1', 123, PARSEDATETIME('2/08/17','dd/MM/yyyy'), PARSEDATETIME('1/09/17','dd/MM/yyyy'));
+                                                                                                               
 --Creazione tabella indirizzi
 
 drop table if exists indirizzi;
