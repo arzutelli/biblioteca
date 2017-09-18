@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nttdata.database.UserMapper;
@@ -21,10 +22,20 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
-    
     @RequestMapping(method= RequestMethod.GET, value="/user")
-    public List<User> listUsers() {
-    	List<User> findAll = userMapper.findAll();
+    public List<User> find(
+    		@RequestParam(value="name",required=false) String name,
+    		@RequestParam(value="surname",required=false) String surname,
+    		@RequestParam(value="email",required=false) String email    		
+    		) {
+    	
+    	User params = new User();
+    	params.setName(name);
+    	params.setSurname(surname);
+    	params.setEmail(email);
+    	
+    	List<User> findAll = userMapper.findByParams(params);
+    	
     	if(findAll != null && findAll.isEmpty())
     		throw new ResourceNotFoundException();
 		return findAll;
@@ -67,5 +78,6 @@ public class UserController {
     		throw new NoContentException();
     	userMapper.delete(badgeId);
     }
+    
     
 }

@@ -19,6 +19,7 @@ create table users (badgeId bigint auto_increment primary key , name varchar, su
 
 insert into users (name, surname, email) values ('Thomas', 'Loesch', 'thomas.loesch@nttdata.com');
 insert into users (name, surname, email) values ('Mario', 'Rossi', 'mario.rossi@gmail.com');
+insert into users (name, surname, email) values ('Mario', 'Verdi', 'mario.verdi@gmail.com');
 
 
 

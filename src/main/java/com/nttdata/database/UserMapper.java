@@ -33,4 +33,13 @@ public interface UserMapper {
 
 	@Select("select * from users")
 	List<User> findAll();
+
+	@Select("<script> select * from users"
+			    +"<where>"
+			     +"<if test='name != null'>AND name=#{name}</if>"
+			     +"<if test='surname != null'>AND surname=#{surname}</if>"
+			     +"<if test='email != null'>AND email=#{email}</if>"
+			    + "</where>"
+			+"</script>")
+	List<User> findByParams(User user);
 }
