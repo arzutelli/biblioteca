@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nttdata.database.TelefonoMapper;
@@ -29,10 +30,17 @@ public class TelefoniController {
 	
 	@Autowired
 	private UserMapper userMapper;
+	
+	    
 
 	@RequestMapping(method = RequestMethod.GET, value = "user/{badgeId}/telefono")
-	public List<Telefoni> listTelefoni(@PathVariable (value = "badgeId", required = true)int badgeId) {
-		List<Telefoni> findAll = telefonoMapper.findAll(badgeId);
+	public List<Telefoni> listTelefoni(@PathVariable (value = "badgeId", required = true)int badgeId,
+			@RequestParam(value="tipo", required= false) String tipo) {
+		
+		Telefoni params = new Telefoni();
+		params.setTipo(tipo);
+		params.setIdUtente(badgeId);
+		List<Telefoni> findAll = telefonoMapper.findAll(params);
 		if (findAll != null && findAll.isEmpty())
 			throw new ResourceNotFoundException();
 		return findAll;

@@ -2,6 +2,8 @@ package com.nttdata.model;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class Telefoni implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -44,19 +46,12 @@ public class Telefoni implements Serializable{
 		this.tipo = tipo;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		return "Telefoni [idCell=" + idCell + ", idUtente=" + idUtente + ", numero=" + numero + ", tipo=" + tipo + "]";
+		return ToStringBuilder.reflectionToString(this);
 	}
-
-
 	
-	
-	
-	
-	
-
 }
+	
+	
+

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nttdata.database.LibroMapper;
@@ -18,6 +19,7 @@ import com.nttdata.exception.ResourceConflictException;
 import com.nttdata.exception.ResourceNotFoundException;
 import com.nttdata.model.Libro;
 
+
 @RestController
 public class LibroController {
 
@@ -25,8 +27,13 @@ public class LibroController {
 	private LibroMapper libroMapper;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/libro")
-	public List<Libro> listLibr() {
-		List<Libro> findAll = libroMapper.findAll();
+	public List<Libro> listLibr(@RequestParam(value="genere", required= false) String genere,
+			@RequestParam(value="titolo", required= false) String titolo) {
+	
+		Libro params = new Libro();
+		params.setGenere(genere);
+		params.setTitolo(titolo);
+		List<Libro> findAll = libroMapper.findAll(params);
 		if (findAll != null && findAll.isEmpty())
 			throw new ResourceNotFoundException();
 		return findAll;

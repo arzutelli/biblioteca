@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.nttdata.model.Telefoni;
 
+
 @Mapper
 public interface TelefonoMapper {
 	
@@ -30,7 +31,15 @@ public interface TelefonoMapper {
 	+	" where idCell = #{idCell} and idUtente = #{idUtente}")
 	int update(Telefoni telefono);
 
-	@Select("select * from Telefoni where idUtente = #{idUtente}")
-	List<Telefoni> findAll(@Param ("idUtente") int idUtente);
+	@Select ("<script> select * from Telefoni"
+			+"<where>"
+			+"<if test= 'idUtente !=null'> AND idUtente=#{idUtente}</if>"
+			+"<if test= 'tipo !=null'>AND tipo=#{tipo}</if>"
+			+"</where>"
+			+"</script>")
+	List<Telefoni> findAll (Telefoni telefono);
+	
+
 
 }
+

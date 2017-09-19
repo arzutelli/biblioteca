@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+
 import com.nttdata.model.Libro;
 
 @Mapper
@@ -32,7 +33,13 @@ public interface LibroMapper {
 				+ " where idLibro = #{idLibro}")
 	int update(Libro libro);
 
-	@Select("select * from Libro")
-	List<Libro> findAll();
+	@Select ("<script> select * from Libro"
+			+"<where>"
+			+"<if test='genere != null'> AND genere=#{genere}</if>"
+			+"<if test='titolo != null'> AND titolo=#{titolo}</if>"
+			+"</where>"
+			+"</script>")
+	List<Libro> findAll (Libro libro);
+	
 
 }
