@@ -15,6 +15,7 @@ import com.nttdata.exception.NoContentException;
 import com.nttdata.exception.ResourceConflictException;
 import com.nttdata.exception.ResourceNotFoundException;
 import com.nttdata.model.User;
+import com.nttdata.utils.Utils;
 
 @RestController
 public class UserController {
@@ -33,8 +34,12 @@ public class UserController {
     	params.setName(name);
     	params.setSurname(surname);
     	params.setEmail(email);
-    	
     	List<User> findAll = userMapper.findByParams(params);
+    	
+    	for(User u : findAll) {
+    		u.setEta(Utils.getEta(u.getDataNascita()));
+    	}
+    	
     	
     	if(findAll != null && findAll.isEmpty())
     		throw new ResourceNotFoundException();

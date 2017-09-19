@@ -18,7 +18,7 @@ public class User implements Serializable{
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")
 	private Date dataNascita;
 
-
+	private int eta;
 
 	public String getName() {
 		return name;
@@ -49,6 +49,15 @@ public class User implements Serializable{
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
+
+	public int getEta() {
+		return eta;
+	}
+
+	public void setEta(int eta) {
+		this.eta = eta;
+	}
+
 	public Date getDataNascita() {
 		return dataNascita;
 	}
