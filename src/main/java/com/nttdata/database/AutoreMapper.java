@@ -33,8 +33,14 @@ public interface AutoreMapper {
 			+ " where idAutore = #{idAutore}")
 	int update(Autore autore);
 
-	@Select("select * from Autore")
-	List<Autore> findAll();
+	@Select("<script> select * from Autore"
+			+ "<where>"
+			+ "<if test='nome != null'> AND nome=#{nome}</if>"
+			+ "<if test='cognome != null'> AND cognome=#{cognome}</if>"
+			+ "<if test='email != null'> AND email=#{email}</if>"
+			+ "</where>"
+			+ "</script>")
+	List<Autore> findAll(Autore autore);
 	
 	@Select("select l.* from Libro l,AutoreLibro al where l.idLibro = al.idLibro AND  al.idAutore = #{idAutore}")
 	List<Libro> findLibri(@Param("idAutore") int idAutore);

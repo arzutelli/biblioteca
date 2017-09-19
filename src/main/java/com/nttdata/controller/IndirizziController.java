@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nttdata.database.IndirizziMapper;
@@ -30,12 +31,44 @@ public class IndirizziController {
 		
 		
 		@RequestMapping(method = RequestMethod.GET, value = "user/{badgeId}/indirizzi")
-		public List<Indirizzi> listIndirizzi(@PathVariable(value = "badgeId", required = true) int badgeId) {
-			List<Indirizzi> findAll = indirizziMapper.findAll(badgeId);
+		public List<Indirizzi> listIndirizzi(@PathVariable(value = "badgeId", required = true) int badgeId,
+				@RequestParam(value="citta",required=false) String citta,
+	    		@RequestParam(value="provincia",required=false) String provincia,
+	    		@RequestParam(value="cap",required=false) String cap){
+			
+			Indirizzi params = new Indirizzi();
+			params.setIdUtente(badgeId);
+	    	params.setCitta(citta);
+	    	params.setProvincia(provincia);
+	    	params.setCap(cap);
+			List<Indirizzi> findAll = indirizziMapper.findAll(params);
+	    	
 			if (findAll != null && findAll.isEmpty())
 				throw new ResourceNotFoundException();
 			return findAll;
 		}
+			
+		/*
+		
+		@RequestMapping(method = RequestMethod.GET, value = "user//indirizzi")
+		public List<Indirizzi> find(
+				@RequestParam(value="citta",required=false) String citta,
+	    		@RequestParam(value="provincia",required=false) String provincia,
+	    		@RequestParam(value="cap",required=false) String cap ) {
+			
+			Indirizzi params = new Indirizzi();
+	    	params.setCitta(citta);
+	    	params.setProvincia(provincia);
+	    	params.setCap(cap);
+	    	List<Indirizzi> findAll = indirizziMapper.findByParams(params);
+			
+	    	if(findAll != null && findAll.isEmpty())
+	    		throw new ResourceNotFoundException();
+			return findAll;
+	    	
+		}
+		*/
+		
 		
 		@RequestMapping(method = RequestMethod.GET, value = "user/{badgeId}/indirizzi/{idIndirizzi}")
 		public Indirizzi get(@PathVariable(value = "idIndirizzi", required = true) int idIndirizzi, @PathVariable(value = "badgeId", required = true) int badgeId) {

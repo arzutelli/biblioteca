@@ -50,6 +50,11 @@ public class UserController {
     @RequestMapping(method= RequestMethod.GET, value="/user/{badgeId}")
     public User get(@PathVariable(value="badgeId", required=true) int badgeId) {
         User user = userMapper.findByBadgeId(badgeId);
+        
+        	User u = user ;
+    		u.setEta(Utils.getEta(u.getDataNascita()));
+    	
+        
         if(user != null)
         	return user;
         else

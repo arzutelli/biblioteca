@@ -32,7 +32,25 @@ public interface IndirizziMapper {
 			+ " where idIndirizzi = #{idIndirizzi} and idUtente = #{idUtente}")
 	int update(Indirizzi indirizzi);
 
-	@Select("select * from Indirizzi where idUtente = #{idUtente}")
-	List<Indirizzi> findAll(@Param("idUtente") int idUtente);
+	@Select("<script> select * from Indirizzi"
+			+ "<where>"
+			+"<if test='idUtente != null'>AND idUtente=#{idUtente}</if>"
+			+"<if test='citta != null'>AND citta=#{citta}</if>"
+		     +"<if test='provincia != null'>AND provincia=#{provincia}</if>"
+		     +"<if test='cap != null'>AND cap=#{cap}</if>"
+		    + "</where>"
+		+"</script>")			
+	List<Indirizzi> findAll(Indirizzi indirizzi);
+	
+	/*
+	@Select("<script> select * from Indirizzi"
+		    +"<where>"
+		     +"<if test='citta != null'>AND citta=#{citta}</if>"
+		     +"<if test='provincia != null'>AND provincia=#{provincia}</if>"
+		     +"<if test='cap != null'>AND cap=#{cap}</if>"
+		    + "</where>"
+		+"</script>")
+List<Indirizzi> findByParams(Indirizzi indirizzi);
+*/
 
 }
