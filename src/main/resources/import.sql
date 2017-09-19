@@ -26,10 +26,9 @@ insert into users (name, surname, email, dataNascita) values ('Mario', 'Verdi', 
 
 drop table if exists Libro;
 
-create table Libro (idLibro bigint auto_increment primary key , titolo varchar, genere varchar, prezzo decimal, scaffale varchar, idUser bigint); -- idUser a che serve???
+create table Libro (idLibro bigint auto_increment primary key , titolo varchar, genere varchar, prezzo decimal, scaffale varchar);
 
 
-alter table Libro add foreign key (idUser) references users (badgeId); --????
 
 
 insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (1,'Orgoglio e Pregiudizio', 'Romanzo', 23, 1);
