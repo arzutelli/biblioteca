@@ -1,7 +1,11 @@
 package com.nttdata.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.nttdata.exception.ResourceConflictException;
 
 public class Noleggio implements Serializable {
 
@@ -9,11 +13,15 @@ public class Noleggio implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int idUtente;
 	private String idLibro;
+	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")
 	private Date dataPrelievo;
+	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")
 	private Date dataConsegna;
     private int idNoleggio;
     
-	
+ 	
 	public int getIdNoleggio() {
 		return idNoleggio;
 	}
@@ -44,7 +52,18 @@ public class Noleggio implements Serializable {
 	}
 
 	public void setDataPrelievo(Date dataPrelievo) {
-		this.dataPrelievo = dataPrelievo;
+
+		Calendar cPrelievo = Calendar.getInstance();	
+		cPrelievo.setTime(dataPrelievo);
+		Calendar now = Calendar.getInstance();
+
+		if(cPrelievo.get(Calendar.YEAR) == now.get(Calendar.YEAR)&&cPrelievo.get(Calendar.MONTH) == now.get(Calendar.MONTH)
+				&& cPrelievo.get(Calendar.DAY_OF_MONTH) == now.get(Calendar.DAY_OF_MONTH))
+			this.dataPrelievo = dataPrelievo;
+		else
+			throw new ResourceConflictException("LA DATA INSERITA NON CORRISPONDE ALLA DATA ATTUALE");
+
+			
 	}
 
 	public Date getDataConsegna() {
@@ -52,8 +71,10 @@ public class Noleggio implements Serializable {
 	}
 
 	public void setDataConsegna(Date dataConsegna) {
-		this.dataConsegna = dataConsegna;
-	}
+		
+		this.dataConsegna=dataConsegna;
+
+	}	
 
 
 	@Override

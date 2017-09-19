@@ -25,11 +25,7 @@ insert into users (name, surname, email, dataNascita) values ('Mario', 'Rossi', 
 
 drop table if exists Libro;
 
-create table Libro (idLibro bigint auto_increment primary key , titolo varchar, genere varchar, prezzo decimal, scaffale varchar, idUser bigint);
-
-
-alter table Libro add foreign key (idUser) references users (badgeId);
-
+create table Libro (idLibro bigint auto_increment primary key , titolo varchar, genere varchar, prezzo decimal, scaffale varchar);
 
 insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (1,'Orgoglio e Pregiudizio', 'Romanzo', 23, 1);
 insert into Libro (idLibro, titolo, genere, prezzo, scaffale) values (2,'Il Signore degli Anelli', 'Fantasy', 28, 6);
@@ -127,24 +123,21 @@ insert into telefoni (idUtente, numero, tipo) values ('1', '3526272884', 'uffici
 
 
 --Creazioe tabella noleggio
-
 drop table if exists noleggio;
-
 create table noleggio (idNoleggio bigint auto_increment primary key, idUtente varchar, idLibro bigint, dataPrelievo date, dataConsegna date);
-
 alter table noleggio add foreign key (idUtente) references users (badgeId);
+alter table noleggio add foreign key (idLibro) references libro (idLibro);
 
-insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('1', 34, PARSEDATETIME('20/09/2017','dd/MM/yyyy'), PARSEDATETIME('20/10/17','dd/MM/yyyy'));
-insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('2', 2, PARSEDATETIME('31/10/17', 'dd/MM/yyyy'),PARSEDATETIME('1/12/17','dd/MM/yyyy'));
-insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('2', 45, PARSEDATETIME('1/01/18', 'dd/MM/yyyy'),PARSEDATETIME('31/01/18','dd/MM/yyyy'));
-insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('1', 123, PARSEDATETIME('2/08/17','dd/MM/yyyy'), PARSEDATETIME('1/09/17','dd/MM/yyyy'));
-                                                                                                               
+insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('1', 1, PARSEDATETIME('18/09/2017' , 'dd/MM/yyyy'), PARSEDATETIME('20/10/2017', 'dd/MM/yyyy'));
+insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('2', 2, PARSEDATETIME('18/09/2017' , 'dd/MM/yyyy'), PARSEDATETIME('01/12/2017', 'dd/MM/yyyy'));
+insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('2', 3, PARSEDATETIME('18/09/2017' , 'dd/MM/yyyy'), PARSEDATETIME('31/01/2018', 'dd/MM/yyyy'));
+insert into noleggio (idUtente, idLibro, dataPrelievo, dataConsegna) values ('1', 4, PARSEDATETIME('18/09/2017' , 'dd/MM/yyyy'), PARSEDATETIME('18/09/2017' , 'dd/MM/yyyy'));
+
+
 --Creazione tabella indirizzi
 
 drop table if exists indirizzi;
-
 create table indirizzi (idIndirizzi bigint auto_increment primary key, idUtente varchar not null, via varchar, citta varchar, provincia varchar, cap varchar);
-
 alter table indirizzi add foreign key (idUtente) references users (badgeId);
 
 insert into indirizzi (idUtente, via, citta, provincia, cap) values ('1', 'via solferino 2', 'pantigliate', 'MI', '20090');
