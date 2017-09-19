@@ -81,7 +81,7 @@ public class TelefoniController {
 	public Telefoni update(@RequestBody Telefoni telefono, @PathVariable(value = "idCell", required = true) int idCell,@PathVariable(value = "badgeId", required = true) int badgeId) {
 		Telefoni foundTelefoni = telefonoMapper.findByIdCell(idCell, badgeId);
 		if (foundTelefoni == null)
-			throw new ResourceNotFoundException("Telefono che si sta cercando di cancellare non esiste");
+			throw new ResourceNotFoundException("Telefono che si sta cercando non esiste");
 
 		telefono.setIdCell(idCell);
 		telefono.setIdUtente(badgeId);

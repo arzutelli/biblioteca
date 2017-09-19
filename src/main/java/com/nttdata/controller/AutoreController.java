@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nttdata.database.AutoreMapper;
@@ -25,10 +26,19 @@ public class AutoreController {
 
 	@Autowired
 	private AutoreMapper autoreMapper;
+	
 
-	@RequestMapping(method = RequestMethod.GET, value = "autore/")
-	public List<Autore> listAutore() {		
-		List<Autore> findAll = autoreMapper.findAll();
+	@RequestMapping(method = RequestMethod.GET, value = "/autore")
+	public List<Autore> listAutore(@RequestParam(value="nome",required=false) String nome,
+    		@RequestParam(value="cognome",required=false) String cognome,
+    		@RequestParam(value="email",required=false) String email) {	
+		
+		Autore params = new Autore();
+    	params.setNome(nome);
+    	params.setCognome(cognome);
+    	params.setEmail(email);
+    	List<Autore> findAll = autoreMapper.findAll(params);
+
 		if (findAll != null && findAll.isEmpty())
 			throw new ResourceNotFoundException();
 		return findAll;
@@ -86,6 +96,7 @@ public class AutoreController {
 			throw new ResourceNotFoundException();
 		return findAll;
 	}
+	
 	
 private boolean validateAutore(Autore autore) {
     	
