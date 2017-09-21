@@ -1,6 +1,7 @@
 package com.nttdata.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -20,6 +21,7 @@ import com.nttdata.exception.ResourceNotFoundException;
 import com.nttdata.model.Libro;
 
 
+
 @RestController
 public class LibroController {
 
@@ -28,15 +30,31 @@ public class LibroController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/libro")
 	public List<Libro> listLibr(@RequestParam(value="genere", required= false) String genere,
-			@RequestParam(value="titolo", required= false) String titolo) {
+			@RequestParam(value="titolo", required= false) String titolo,
+			@RequestParam(value="prezzogt", required= false) BigDecimal prezzogt,
+			@RequestParam(value="prezzolt", required= false) BigDecimal prezzolt) {
 	
 		Libro params = new Libro();
 		params.setGenere(genere);
 		params.setTitolo(titolo);
 		List<Libro> findAll = libroMapper.findAll(params);
-		if (findAll != null && findAll.isEmpty())
+		
+		List<Libro> libriFiltred = new ArrayList<>();
+	
+		for(Libro l : findAll) {
+			if(prezzogt != null) {
+				if(l.getPrezzo().compareTo(prezzogt)>=0) {
+					libriFiltred.add(l);					
+				}
+		}
+			else {
+				libriFiltred.add(l);
+			}
+		}	
+		
+		if (libriFiltred != null && libriFiltred.isEmpty())
 			throw new ResourceNotFoundException();
-		return findAll;
+		return libriFiltred;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/libro/{idLibro}")
@@ -66,6 +84,11 @@ public class LibroController {
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/libro/{idLibro}")
 	public Libro update(@RequestBody Libro libro, @PathVariable(value = "idLibro", required = true) int idLibro) {
+		
+		 if(!validateLibro(libro)){
+		        throw new BadRequestException();
+		        }
+		
 		Libro foundLibro = libroMapper.findByIdLibro(idLibro);
 		if (foundLibro == null)
 			throw new NoContentException();
@@ -89,7 +112,7 @@ private boolean validateLibro(Libro libro) {
 			return false;
 		if(StringUtils.isBlank(libro.getGenere()))
 			return false;
-		if(libro.getPrezzo().compareTo(new BigDecimal(0))<=0)
+		if(libro.getPrezzo()==null)
 			return false;
 		if(StringUtils.isBlank(libro.getScaffale()))
 			return false;

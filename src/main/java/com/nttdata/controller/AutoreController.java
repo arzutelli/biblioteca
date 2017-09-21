@@ -72,7 +72,12 @@ public class AutoreController {
 	@RequestMapping(method = RequestMethod.PUT, value = "/autore/{idAutore}")
 	public Autore update(@RequestBody Autore autore,
 			@PathVariable(value = "idAutore", required = true) int idAutore) {
-		Autore foundAutore = autoreMapper.findByIdAutore(idAutore);
+		
+		if (!validateAutore(autore)) {
+			throw new BadRequestException();
+		}
+		
+		Autore foundAutore = autoreMapper.findByIdAutore(idAutore);		
 		if (foundAutore == null)
 			throw new NoContentException();
 
@@ -91,6 +96,7 @@ public class AutoreController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "autore/{idAutore}/libro")
 	public List<Libro> listLibro(@PathVariable(value = "idAutore", required = true) int idAutore) {
+	
 		List<Libro> findAll = autoreMapper.findLibri(idAutore);
 		if (findAll != null && findAll.isEmpty())
 			throw new ResourceNotFoundException();

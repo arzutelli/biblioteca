@@ -42,15 +42,5 @@ public interface IndirizziMapper {
 		+"</script>")			
 	List<Indirizzi> findAll(Indirizzi indirizzi);
 	
-	/*
-	@Select("<script> select * from Indirizzi"
-		    +"<where>"
-		     +"<if test='citta != null'>AND citta=#{citta}</if>"
-		     +"<if test='provincia != null'>AND provincia=#{provincia}</if>"
-		     +"<if test='cap != null'>AND cap=#{cap}</if>"
-		    + "</where>"
-		+"</script>")
-List<Indirizzi> findByParams(Indirizzi indirizzi);
-*/
 
 }

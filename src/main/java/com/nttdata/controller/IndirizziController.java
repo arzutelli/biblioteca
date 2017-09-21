@@ -2,7 +2,7 @@ package com.nttdata.controller;
 
 import java.util.List;
 
-
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nttdata.database.IndirizziMapper;
 import com.nttdata.database.UserMapper;
+import com.nttdata.exception.BadRequestException;
 import com.nttdata.exception.NoContentException;
 import com.nttdata.exception.ResourceConflictException;
 import com.nttdata.exception.ResourceNotFoundException;
@@ -47,28 +48,7 @@ public class IndirizziController {
 				throw new ResourceNotFoundException();
 			return findAll;
 		}
-			
-		/*
-		
-		@RequestMapping(method = RequestMethod.GET, value = "user//indirizzi")
-		public List<Indirizzi> find(
-				@RequestParam(value="citta",required=false) String citta,
-	    		@RequestParam(value="provincia",required=false) String provincia,
-	    		@RequestParam(value="cap",required=false) String cap ) {
-			
-			Indirizzi params = new Indirizzi();
-	    	params.setCitta(citta);
-	    	params.setProvincia(provincia);
-	    	params.setCap(cap);
-	    	List<Indirizzi> findAll = indirizziMapper.findByParams(params);
-			
-	    	if(findAll != null && findAll.isEmpty())
-	    		throw new ResourceNotFoundException();
-			return findAll;
-	    	
-		}
-		*/
-		
+				
 		
 		@RequestMapping(method = RequestMethod.GET, value = "user/{badgeId}/indirizzi/{idIndirizzi}")
 		public Indirizzi get(@PathVariable(value = "idIndirizzi", required = true) int idIndirizzi, @PathVariable(value = "badgeId", required = true) int badgeId) {
@@ -82,6 +62,10 @@ public class IndirizziController {
 		@RequestMapping(method = RequestMethod.POST, value = "user/{badgeId}/indirizzi")
 		public Indirizzi add(@RequestBody Indirizzi indirizzi,
 				@PathVariable(value = "badgeId", required = true) int badgeId) {
+			
+			 if(!validateIndirizzi(indirizzi)){
+			        throw new BadRequestException();
+			        }
 			
 			User findByBadgeId = userMapper.findByBadgeId(badgeId);
 			if (findByBadgeId == null)
@@ -100,6 +84,11 @@ public class IndirizziController {
 		@RequestMapping(method = RequestMethod.PUT, value = "user/{badgeId}/indirizzi/{idIndirizzi}")
 		public Indirizzi update(@RequestBody Indirizzi indirizzi, @PathVariable(value = "idIndirizzi", required = true) int idIndirizzi, @PathVariable(value = "badgeId", required = true) int badgeId) {
 		Indirizzi foundIndirizzi = indirizziMapper.findByIdIndirizzi (idIndirizzi, badgeId);
+		
+		if(!validateIndirizzi(indirizzi)){
+	        throw new BadRequestException();
+	        }
+		
 			if (foundIndirizzi == null)
 				throw new NoContentException();
 			
@@ -117,5 +106,17 @@ public class IndirizziController {
 			indirizziMapper.delete(idIndirizzi);
 		}
 	
+		private boolean validateIndirizzi(Indirizzi indirizzi) {
+	    	
+			if(StringUtils.isBlank(indirizzi.getVia()))
+				return false;
+			if(StringUtils.isBlank(indirizzi.getCitta()))
+				return false;
+			if(StringUtils.isBlank(indirizzi.getProvincia()))
+				return false;
+
+			
+			return true;
+		}
 
 }
