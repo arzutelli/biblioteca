@@ -109,7 +109,7 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/user")
-	public User add(@RequestBody User user, @PathVariable(value = "dataNascita", required = true) Date dataNascita) {
+	public User add(@RequestBody User user) {
 
 		if (!validateUser(user)) {
 			throw new BadRequestException();
