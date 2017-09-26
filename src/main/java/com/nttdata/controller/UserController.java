@@ -80,6 +80,17 @@ public class UserController {
 		return filtered;
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "/user/search")
+	public List<User> find(@RequestParam(value = "query", required = false) String query){
+		
+		List<User> findAll = userMapper.findByQuery(query);
+		
+		if (findAll != null && findAll.isEmpty())
+			throw new ResourceNotFoundException();
+		
+		return findAll;
+	}
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/user/{badgeId}")
 	public User get(@PathVariable(value = "badgeId", required = true) int badgeId) {
 		User user = userMapper.findByBadgeId(badgeId);

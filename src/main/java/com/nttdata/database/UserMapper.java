@@ -48,4 +48,16 @@ public interface UserMapper {
 			+ "</script>")
 	List<User> findByParams(Map<String, Object> params);
 
+	
+	@Select("select distinct u.* "
+			+ "from users u "
+				+ "left outer join Indirizzi i on i.idUtente = u.badgeId "
+				+ "left outer join Telefoni t on t.idUtente = u.badgeId " 
+			+ "where "
+				+ " upper(u.name) like upper('%'||#{query}||'%')"
+				+ " OR upper(u.surname) like upper('%'||#{query}||'%')"
+				+ " OR upper(i.citta) like upper('%'||#{query}||'%')"
+				+ " order by badgeId")
+	List<User> findByQuery(@Param("query") String query);
+
 }
