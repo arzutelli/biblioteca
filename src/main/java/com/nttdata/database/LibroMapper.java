@@ -40,5 +40,15 @@ public interface LibroMapper {
 			+ "</where>"
 			+ "</script>")
 	List<Libro> findAll(Map<String, Object> params);
+	
+	
+	
+	@Select("select * "
+			+ "from Libro "
+			+ "where "
+				+ " upper(titolo) like upper('%'||#{query}||'%')"
+				+ " OR upper(genere) like upper('%'||#{query}||'%')"
+				+ " order by idLibro")
+	List<Libro> findByQuery(@Param("query") String query);
 
 }

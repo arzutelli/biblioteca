@@ -85,6 +85,10 @@ public class UserController {
 		
 		List<User> findAll = userMapper.findByQuery(query);
 		
+		for (User u : findAll) {
+			u.setEta(Utils.getEta(u.getDataNascita()));
+		}
+		
 		if (findAll != null && findAll.isEmpty())
 			throw new ResourceNotFoundException();
 		

@@ -78,6 +78,21 @@ public class LibroController {
 			throw new ResourceNotFoundException();
 		return libriFiltred;
 	}
+	
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/libro/search")
+	public List<Libro> find(@RequestParam(value = "query", required = false) String query){
+		
+		List<Libro> findAll = libroMapper.findByQuery(query);
+		
+		if (findAll != null && findAll.isEmpty())
+			throw new ResourceNotFoundException();
+		
+		return findAll;
+	}
+	
+	
+	
 
 	@RequestMapping(method = RequestMethod.GET, value = "/libro/{idLibro}")
 	public Libro get(@PathVariable(value = "idLibro", required = true) int idLibro) {

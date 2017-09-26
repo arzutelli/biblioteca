@@ -162,9 +162,9 @@ insert into indirizzi (idUtente, via, citta, provincia, cap) values ('3', 'via d
 insert into indirizzi (idUtente, via, citta, provincia, cap) values ('1', 'via angelo moro 6', 'San donato milanese', 'MI', '20097');
 insert into indirizzi (idUtente, via, citta, provincia, cap) values ('2', 'via turro 23', 'riccione', 'RI', '40020');
 insert into indirizzi (idUtente, via, citta, provincia, cap) values ('3', 'via della pace 7', 'mombretto', 'MI', '20060');
-insert into indirizzi (idUtente, via, citta, provincia, cap) values ('1', 'via alessandro manzoni 4', 'Borgo ticino', 'PV', '27100');
+insert into indirizzi (idUtente, via, citta, provincia, cap) values ('4', 'via alessandro manzoni 4', 'Borgo ticino', 'PV', '27100');
 insert into indirizzi (idUtente, via, citta, provincia, cap) values ('2', 'via carro maggiore 6', 'Settala', 'MI', '20090');
-insert into indirizzi (idUtente, via, citta, provincia, cap) values ('3', 'via cavour 34/a', 'San giuliano milanese', 'rI', '20098');
+insert into indirizzi (idUtente, via, citta, provincia, cap) values ('5', 'via cavour 34/a', 'San giuliano milanese', 'rI', '20098');
 
 
 
