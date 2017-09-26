@@ -2,8 +2,9 @@ package com.nttdata.controller;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import com.nttdata.exception.BadRequestException;
 import com.nttdata.exception.NoContentException;
 import com.nttdata.exception.ResourceConflictException;
 import com.nttdata.exception.ResourceNotFoundException;
+import com.nttdata.model.Indirizzi;
 import com.nttdata.model.User;
 import com.nttdata.utils.Utils;
 
@@ -33,15 +35,25 @@ public class UserController {
 			@RequestParam(value="name",required=false) String name,
 			@RequestParam(value="surname",required=false) String surname,
 			@RequestParam(value="email",required=false) String email,
-			@RequestParam(value="minEta", required=false) Integer minEta
+			@RequestParam(value="minEta", required=false) Integer minEta,
+			@RequestParam(value="citta", required = false) String citta
 			) {
 
-		User params = new User();
-		params.setName(name);
-		params.setSurname(surname);
-		params.setEmail(email);
-		List<User> findAll = userMapper.findByParams(params);
+		Map<String, Object> params= new HashMap<>();
+		
+		User user = new User();
+		user.setName(name);
+		user.setSurname(surname);
+		user.setEmail(email);
+		
+		params.put("user", user);
 
+		Indirizzi ind = new Indirizzi();
+		ind.setCitta(citta);
+		params.put("indirizzo", ind);
+		
+		List<User> findAll = userMapper.findByParams(params);
+		
 		List<User> filtered = new ArrayList<>();
 
 		for(User u : findAll) {
@@ -53,17 +65,18 @@ public class UserController {
 			}else {
 				filtered.add(u);
 			}
-		}
+		
+			
+			}
+			
 		
 		
-
 		if(filtered != null && filtered.isEmpty())
 			throw new ResourceNotFoundException();
 
 		return filtered;
 	}
-
-
+	
 	@RequestMapping(method= RequestMethod.GET, value="/user/{badgeId}")
 	public User get(@PathVariable(value="badgeId", required=true) int badgeId) {
 		User user = userMapper.findByBadgeId(badgeId);

@@ -1,6 +1,7 @@
 package com.nttdata.database;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -10,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.nttdata.model.Indirizzi;
 import com.nttdata.model.User;
 
 @Mapper
@@ -35,12 +37,18 @@ public interface UserMapper {
 	@Select("select * from users")
 	List<User> findAll();
 
-	@Select("<script> select * from users"
+	@Select("<script> select distinct u.* from users u, Indirizzi i "
 			    +"<where>"
-			     +"<if test='name != null'>AND name=#{name}</if>"
-			     +"<if test='surname != null'>AND surname=#{surname}</if>"
-			     +"<if test='email != null'>AND email=#{email}</if>"
+			    +"i.idUtente = u.badgeId "
+			    +"<if test='indirizzo.citta != null'>AND i.citta=#{indirizzo.citta}</if>"
+			     +"<if test='user.name != null'>AND name=#{user.name}</if>"
+			     +"<if test='user.surname != null'>AND surname=#{user.surname}</if>"
+			     +"<if test='user.email != null'>AND email=#{user.email}</if>"
 			    + "</where>"
 			+"</script>")
-	List<User> findByParams(User user);
+	List<User> findByParams(Map<String, Object> params);
+	
+	@Select("select u.* from users u, Indirizzi i where i.idUtente = u.badgeId and i.citta=#{citta}")
+	List<User> findByCitta(Indirizzi indirizzi);
+	
 }

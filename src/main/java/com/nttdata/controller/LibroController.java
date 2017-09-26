@@ -18,9 +18,8 @@ import com.nttdata.exception.BadRequestException;
 import com.nttdata.exception.NoContentException;
 import com.nttdata.exception.ResourceConflictException;
 import com.nttdata.exception.ResourceNotFoundException;
+import com.nttdata.model.Autore;
 import com.nttdata.model.Libro;
-
-
 
 @RestController
 public class LibroController {
@@ -29,29 +28,51 @@ public class LibroController {
 	private LibroMapper libroMapper;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/libro")
-	public List<Libro> listLibr(@RequestParam(value="genere", required= false) String genere,
-			@RequestParam(value="titolo", required= false) String titolo,
-			@RequestParam(value="prezzogt", required= false) BigDecimal prezzogt,
-			@RequestParam(value="prezzolt", required= false) BigDecimal prezzolt) {
-	
+	public List<Libro> listLibr(@RequestParam(value = "genere", required = false) String genere,
+			@RequestParam(value = "titolo", required = false) String titolo,
+			@RequestParam(value = "prezzogt", required = false) BigDecimal prezzogt,
+			@RequestParam(value = "prezzolt", required = false) BigDecimal prezzolt,
+			@RequestParam(value="nome",required=false) String nome,
+			@RequestParam(value="cognome",required=false) String cognome) {
+
 		Libro params = new Libro();
 		params.setGenere(genere);
 		params.setTitolo(titolo);
 		List<Libro> findAll = libroMapper.findAll(params);
-		
+
 		List<Libro> libriFiltred = new ArrayList<>();
-	
-		for(Libro l : findAll) {
-			if(prezzogt != null) {
-				if(l.getPrezzo().compareTo(prezzogt)>=0) {
-					libriFiltred.add(l);					
+
+		for (Libro l : findAll) {
+			if (prezzogt != null && prezzolt==null) {
+				if (l.getPrezzo().compareTo(prezzogt) >= 0) {
+					libriFiltred.add(l);
 				}
-		}
-			else {
+			}
+			else if (prezzolt != null && prezzogt==null) {
+				if (l.getPrezzo().compareTo(prezzolt) <= 0) {
+					libriFiltred.add(l);
+				}
+			} 
+			
+			else if(prezzolt!=null && prezzogt!=null) {
+				if(l.getPrezzo().compareTo(prezzogt) >= 0 && l.getPrezzo().compareTo(prezzolt) <= 0) {
+					libriFiltred.add(l);
+				}
+			}else {
 				libriFiltred.add(l);
 			}
-		}	
-		
+					
+			if(nome!=null && cognome!=null) {
+				Autore param = new Autore();
+				param.setNome(nome);
+				param.setCognome(cognome);
+				List<Libro> findNomeCognome = libroMapper.findNomeCognome(param);
+				return	findNomeCognome;		
+			}
+			
+
+		}
+
 		if (libriFiltred != null && libriFiltred.isEmpty())
 			throw new ResourceNotFoundException();
 		return libriFiltred;
@@ -68,12 +89,11 @@ public class LibroController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/libro")
 	public Libro add(@RequestBody Libro libro) {
-		
-	    if(!validateLibro(libro)){
-	        throw new BadRequestException();
-	        }
 
-		
+		if (!validateLibro(libro)) {
+			throw new BadRequestException();
+		}
+
 		Libro foundLibro = libroMapper.findByIdLibro(libro.getIdLibro());
 		if (foundLibro != null)
 			throw new ResourceConflictException();
@@ -84,11 +104,11 @@ public class LibroController {
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/libro/{idLibro}")
 	public Libro update(@RequestBody Libro libro, @PathVariable(value = "idLibro", required = true) int idLibro) {
-		
-		 if(!validateLibro(libro)){
-		        throw new BadRequestException();
-		        }
-		
+
+		if (!validateLibro(libro)) {
+			throw new BadRequestException();
+		}
+
 		Libro foundLibro = libroMapper.findByIdLibro(idLibro);
 		if (foundLibro == null)
 			throw new NoContentException();
@@ -105,21 +125,18 @@ public class LibroController {
 			throw new NoContentException();
 		libroMapper.delete(idLibro);
 	}
-	
-private boolean validateLibro(Libro libro) {
-    	
-		if(StringUtils.isBlank(libro.getTitolo()))
+
+	private boolean validateLibro(Libro libro) {
+
+		if (StringUtils.isBlank(libro.getTitolo()))
 			return false;
-		if(StringUtils.isBlank(libro.getGenere()))
+		if (StringUtils.isBlank(libro.getGenere()))
 			return false;
-		if(libro.getPrezzo()==null)
+		if (libro.getPrezzo() == null)
 			return false;
-		if(StringUtils.isBlank(libro.getScaffale()))
+		if (StringUtils.isBlank(libro.getScaffale()))
 			return false;
-		
+
 		return true;
 	}
 }
-
-
-

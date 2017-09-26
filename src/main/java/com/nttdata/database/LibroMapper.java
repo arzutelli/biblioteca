@@ -10,8 +10,9 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-
+import com.nttdata.model.Autore;
 import com.nttdata.model.Libro;
+
 
 @Mapper
 public interface LibroMapper {
@@ -40,6 +41,9 @@ public interface LibroMapper {
 			+"</where>"
 			+"</script>")
 	List<Libro> findAll (Libro libro);
+	
+	@Select ("select l.* from libro l, autore a, AutoreLibro al where a.nome=#{nome} and a.cognome=#{cognome} and l.idLibro=al.idLibro and al.idAutore=a.idAutore")			
+	List<Libro> findNomeCognome (Autore autore);
 	
 
 }

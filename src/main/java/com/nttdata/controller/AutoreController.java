@@ -25,9 +25,8 @@ import com.nttdata.model.Libro;
 public class AutoreController {
 
 	@Autowired
-	private AutoreMapper autoreMapper;
+	private AutoreMapper autoreMapper;	
 	
-
 	@RequestMapping(method = RequestMethod.GET, value = "/autore")
 	public List<Autore> listAutore(@RequestParam(value="nome",required=false) String nome,
     		@RequestParam(value="cognome",required=false) String cognome,

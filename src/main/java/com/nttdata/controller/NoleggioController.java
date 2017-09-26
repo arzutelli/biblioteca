@@ -33,31 +33,31 @@ public class NoleggioController {
 
 	@Autowired
 	private UserMapper userMapper;
-	
+
 
 	@RequestMapping(method = RequestMethod.GET, value = "/noleggio")
 	public List<Noleggio> listNoleggio(@RequestParam(value="ritardo",required=false) Boolean isritardo) {
 		List<Noleggio> findAll = noleggioMapper.findAll();
-		
-		
+
+
 		List<Noleggio> filtered = new ArrayList<>();
 
 		for (Noleggio n : findAll) {
 			Date dataNoleggio30 = Utils.addDays(n.getDataPrelievo(), 30);
 			boolean ritardo = dataNoleggio30.before(new Date()) && n.getDataConsegna() == null;
 			n.setRitardo(ritardo);
-			
+
 			if(isritardo != null ) {
-				if(n.isRitardo() == true) {
+				if(n.isRitardo() == isritardo) {
 					filtered.add(n);
 				}
-			
+
 			}else {
 				filtered.add(n);
 			}
-				
+
 		}
-		
+
 		if (filtered != null && filtered.isEmpty())
 			throw new ResourceNotFoundException("Non ci sono noleggi");
 
@@ -72,10 +72,10 @@ public class NoleggioController {
 		User findByBadgeId = userMapper.findByBadgeId(badgeId);
 		if (findByBadgeId == null)
 			throw new ResourceNotFoundException("L'utente non esiste"+badgeId+" non esiste");
-		
+
 		List<Noleggio> findAll = noleggioMapper.findAllByUtente(badgeId);
 		List<Noleggio> filtered = new ArrayList<>();
-		
+
 		for(Noleggio n : findAll) {
 			if(ritardo != null) {
 				if(n.isRitardo() == true) {
@@ -85,7 +85,7 @@ public class NoleggioController {
 				filtered.add(n);
 			}
 		}
-		
+
 		if (findAll != null && findAll.isEmpty())
 			throw new ResourceNotFoundException("L'utente inserito non ha fatto nessun noleggio");
 		return findAll;
@@ -94,11 +94,11 @@ public class NoleggioController {
 	@RequestMapping(method = RequestMethod.GET, value = "user/{badgeId}/noleggio/{idNoleggio}")
 	public Noleggio get(@PathVariable(value = "idNoleggio", required = true) int idNoleggio,
 			@PathVariable(value = "badgeId", required = true) int badgeId) {
-		
+
 		User findByBadgeId = userMapper.findByBadgeId(badgeId);
 		if (findByBadgeId == null)
 			throw new ResourceNotFoundException("L'utente non esiste"+badgeId+" non esiste");
-		
+
 		Noleggio noleggio = noleggioMapper.findByIdNoleggio(badgeId,idNoleggio);
 		if (noleggio != null)
 			return noleggio;
@@ -109,16 +109,16 @@ public class NoleggioController {
 	@RequestMapping(method = RequestMethod.POST, value = "user/{badgeId}/noleggio")
 	public Noleggio add(@RequestBody Noleggio noleggio,
 			@PathVariable(value = "badgeId", required = true) int badgeId) {
-		
+
 		User findByBadgeId = userMapper.findByBadgeId(badgeId);
 		if (findByBadgeId == null)
 			throw new ResourceNotFoundException("L'utente non esiste"+badgeId+" non esiste");
-		
+
 		if (!noleggio.getDataPrelievo().equals(DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH))) {
 			throw new BadRequestException("La data di prelievo non corrisponde alla data di oggi!");
 		}
-				
-		
+
+
 		Noleggio foundNoleggio = noleggioMapper.findByIdNoleggio(noleggio.getIdNoleggio(),badgeId);
 		if (foundNoleggio != null)
 			throw new ResourceConflictException();
@@ -140,7 +140,7 @@ public class NoleggioController {
 		User findByBadgeId = userMapper.findByBadgeId(badgeId);
 		if (findByBadgeId == null)
 			throw new ResourceNotFoundException("L'utente non esiste"+badgeId+" non esiste");
-		
+
 		Noleggio foundNoleggio = noleggioMapper.findByIdNoleggio(badgeId,idNoleggio);
 		if (foundNoleggio == null)
 			throw new NoContentException("Noleggio non esistente");
@@ -154,11 +154,11 @@ public class NoleggioController {
 	@RequestMapping(method = RequestMethod.DELETE, value = "user/{badgeId}/noleggio/{idNoleggio}")
 	public void delete(@PathVariable(value = "idNoleggio", required = true) int idNoleggio,
 			@PathVariable(value = "badgeId", required = true) int badgeId) {
-		
+
 		User user = userMapper.findByBadgeId(badgeId);
 		if (user == null)
 			throw new ResourceNotFoundException("L'utente non esiste "+badgeId+" non esiste");
-		
+
 		Noleggio foundNoleggio = noleggioMapper.findByIdNoleggio(badgeId,idNoleggio);
 		if (foundNoleggio == null)
 			throw new NoContentException();
