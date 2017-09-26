@@ -1,6 +1,7 @@
 package com.nttdata.database;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -10,9 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import com.nttdata.model.Autore;
 import com.nttdata.model.Libro;
-
 
 @Mapper
 public interface LibroMapper {
@@ -27,23 +26,19 @@ public interface LibroMapper {
 	@Delete("delete Libro where idLibro = #{idLibro}")
 	int delete(@Param("idLibro") int idLibro);
 
-	@Update("update Libro set titolo = #{titolo},"
-				+ " genere = #{genere},"
-				+ " prezzo = #{prezzo},"
-				+ " scaffale = #{scaffale}"
-				+ " where idLibro = #{idLibro}")
+	@Update("update Libro set titolo = #{titolo}," + " genere = #{genere}," + " prezzo = #{prezzo},"
+			+ " scaffale = #{scaffale}" + " where idLibro = #{idLibro}")
 	int update(Libro libro);
 
-	@Select ("<script> select * from Libro"
-			+"<where>"
-			+"<if test='genere != null'> AND genere=#{genere}</if>"
-			+"<if test='titolo != null'> AND titolo=#{titolo}</if>"
-			+"</where>"
-			+"</script>")
-	List<Libro> findAll (Libro libro);
-	
-	@Select ("select l.* from libro l, autore a, AutoreLibro al where a.nome=#{nome} and a.cognome=#{cognome} and l.idLibro=al.idLibro and al.idAutore=a.idAutore")			
-	List<Libro> findNomeCognome (Autore autore);
-	
+	@Select("<script> select distinct l.* from Libro l, Autore a, AutoreLibro al "
+			+ "<where>"
+			+ "l.idLibro=al.idLibro and al.idAutore=a.idAutore "
+			+ "<if test='libro.genere != null'> AND genere=#{libro.genere}</if>"
+			+ "<if test='libro.titolo != null'> AND titolo=#{libro.titolo}</if>"
+			+ "<if test='autore.nome != null'> AND nome=#{autore.nome}</if>"
+			+ "<if test='autore.cognome != null'> AND cognome=#{autore.cognome}</if>"
+			+ "</where>"
+			+ "</script>")
+	List<Libro> findAll(Map<String, Object> params);
 
 }

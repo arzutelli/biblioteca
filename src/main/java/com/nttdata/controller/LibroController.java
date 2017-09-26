@@ -2,7 +2,9 @@ package com.nttdata.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,44 +34,43 @@ public class LibroController {
 			@RequestParam(value = "titolo", required = false) String titolo,
 			@RequestParam(value = "prezzogt", required = false) BigDecimal prezzogt,
 			@RequestParam(value = "prezzolt", required = false) BigDecimal prezzolt,
-			@RequestParam(value="nome",required=false) String nome,
-			@RequestParam(value="cognome",required=false) String cognome) {
+			@RequestParam(value = "nome", required = false) String nome,
+			@RequestParam(value = "cognome", required = false) String cognome) {
 
-		Libro params = new Libro();
-		params.setGenere(genere);
-		params.setTitolo(titolo);
+		Map<String, Object> params = new HashMap<>();
+
+		Libro libro = new Libro();
+		libro.setGenere(genere);
+		libro.setTitolo(titolo);
+		params.put("libro", libro);
+
+		Autore autore = new Autore();
+		autore.setNome(nome);
+		autore.setCognome(cognome);	
+		params.put("autore", autore);
+
 		List<Libro> findAll = libroMapper.findAll(params);
 
 		List<Libro> libriFiltred = new ArrayList<>();
 
 		for (Libro l : findAll) {
-			if (prezzogt != null && prezzolt==null) {
+			if (prezzogt != null && prezzolt == null) {
 				if (l.getPrezzo().compareTo(prezzogt) >= 0) {
 					libriFiltred.add(l);
 				}
-			}
-			else if (prezzolt != null && prezzogt==null) {
+			} else if (prezzolt != null && prezzogt == null) {
 				if (l.getPrezzo().compareTo(prezzolt) <= 0) {
 					libriFiltred.add(l);
 				}
-			} 
-			
-			else if(prezzolt!=null && prezzogt!=null) {
-				if(l.getPrezzo().compareTo(prezzogt) >= 0 && l.getPrezzo().compareTo(prezzolt) <= 0) {
+			}
+
+			else if (prezzolt != null && prezzogt != null) {
+				if (l.getPrezzo().compareTo(prezzogt) >= 0 && l.getPrezzo().compareTo(prezzolt) <= 0) {
 					libriFiltred.add(l);
 				}
-			}else {
+			} else {
 				libriFiltred.add(l);
 			}
-					
-			if(nome!=null && cognome!=null) {
-				Autore param = new Autore();
-				param.setNome(nome);
-				param.setCognome(cognome);
-				List<Libro> findNomeCognome = libroMapper.findNomeCognome(param);
-				return	findNomeCognome;		
-			}
-			
 
 		}
 

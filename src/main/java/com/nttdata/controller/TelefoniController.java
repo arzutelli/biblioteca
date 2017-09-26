@@ -30,7 +30,6 @@ public class TelefoniController {
 	
 	@Autowired
 	private UserMapper userMapper;
-	
 	    
 
 	@RequestMapping(method = RequestMethod.GET, value = "user/{badgeId}/telefono")

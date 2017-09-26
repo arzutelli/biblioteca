@@ -21,6 +21,7 @@ import com.nttdata.exception.NoContentException;
 import com.nttdata.exception.ResourceConflictException;
 import com.nttdata.exception.ResourceNotFoundException;
 import com.nttdata.model.Indirizzi;
+import com.nttdata.model.Telefoni;
 import com.nttdata.model.User;
 import com.nttdata.utils.Utils;
 
@@ -30,93 +31,92 @@ public class UserController {
 	@Autowired
 	private UserMapper userMapper;
 
-	@RequestMapping(method= RequestMethod.GET, value="/user")
-	public List<User> find(
-			@RequestParam(value="name",required=false) String name,
-			@RequestParam(value="surname",required=false) String surname,
-			@RequestParam(value="email",required=false) String email,
-			@RequestParam(value="minEta", required=false) Integer minEta,
-			@RequestParam(value="citta", required = false) String citta
-			) {
+	@RequestMapping(method = RequestMethod.GET, value = "/user")
+	public List<User> find(@RequestParam(value = "name", required = false) String name,
+			@RequestParam(value = "surname", required = false) String surname,
+			@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "minEta", required = false) Integer minEta,
+			@RequestParam(value = "citta", required = false) String citta,
+			@RequestParam(value = "numero", required = false) String numero) {
 
-		Map<String, Object> params= new HashMap<>();
-		
+		Map<String, Object> params = new HashMap<>();
+
 		User user = new User();
 		user.setName(name);
 		user.setSurname(surname);
 		user.setEmail(email);
-		
+
 		params.put("user", user);
 
 		Indirizzi ind = new Indirizzi();
 		ind.setCitta(citta);
+
 		params.put("indirizzo", ind);
-		
+
+		Telefoni telefono = new Telefoni();
+		telefono.setNumero(numero);
+
+		params.put("telefono", telefono);
+
 		List<User> findAll = userMapper.findByParams(params);
-		
+
 		List<User> filtered = new ArrayList<>();
 
-		for(User u : findAll) {
+		for (User u : findAll) {
 			u.setEta(Utils.getEta(u.getDataNascita()));
-			if(minEta != null) {
-				if(u.getEta() >= minEta) {
+			if (minEta != null) {
+				if (u.getEta() >= minEta) {
 					filtered.add(u);
 				}
-			}else {
+			} else {
 				filtered.add(u);
 			}
-		
-			
-			}
-			
-		
-		
-		if(filtered != null && filtered.isEmpty())
+
+		}
+
+		if (filtered != null && filtered.isEmpty())
 			throw new ResourceNotFoundException();
 
 		return filtered;
 	}
-	
-	@RequestMapping(method= RequestMethod.GET, value="/user/{badgeId}")
-	public User get(@PathVariable(value="badgeId", required=true) int badgeId) {
+
+	@RequestMapping(method = RequestMethod.GET, value = "/user/{badgeId}")
+	public User get(@PathVariable(value = "badgeId", required = true) int badgeId) {
 		User user = userMapper.findByBadgeId(badgeId);
 
-		User u = user ;
+		User u = user;
 		u.setEta(Utils.getEta(u.getDataNascita()));
 
-
-		if(user != null)
+		if (user != null)
 			return user;
 		else
 			throw new ResourceNotFoundException();
 	}
 
-	@RequestMapping(method= RequestMethod.POST, value="/user")
+	@RequestMapping(method = RequestMethod.POST, value = "/user")
 	public User add(@RequestBody User user, @PathVariable(value = "dataNascita", required = true) Date dataNascita) {
 
-		if(!validateUser(user)){
+		if (!validateUser(user)) {
 			throw new BadRequestException();
 		}
 
-
 		User foundUser = userMapper.findByBadgeId(user.getBadgeId());
-		if(foundUser != null)
+		if (foundUser != null)
 			throw new ResourceConflictException();
 
 		userMapper.add(user);
 		return user;
 	}
 
-	@RequestMapping(method= RequestMethod.PUT, value="/user/{badgeId}")
-	public User update(@RequestBody User user,@PathVariable(value="badgeId", required=true) int badgeId) {
+	@RequestMapping(method = RequestMethod.PUT, value = "/user/{badgeId}")
+	public User update(@RequestBody User user, @PathVariable(value = "badgeId", required = true) int badgeId) {
 
-		if(!validateUser(user)){
+		if (!validateUser(user)) {
 			throw new BadRequestException();
 		}
 
-
 		User foundUser = userMapper.findByBadgeId(badgeId);
-		if(foundUser == null)
+		if (foundUser == null)
 			throw new NoContentException();
 
 		user.setBadgeId(badgeId);
@@ -124,25 +124,23 @@ public class UserController {
 		return user;
 	}
 
-	@RequestMapping(method= RequestMethod.DELETE, value="/user/{badgeId}")
-	public void delete(@PathVariable(value="badgeId", required=true) int badgeId) {
+	@RequestMapping(method = RequestMethod.DELETE, value = "/user/{badgeId}")
+	public void delete(@PathVariable(value = "badgeId", required = true) int badgeId) {
 		User foundUser = userMapper.findByBadgeId(badgeId);
-		if(foundUser == null)
+		if (foundUser == null)
 			throw new NoContentException();
 		userMapper.delete(badgeId);
 	}
 
 	private boolean validateUser(User user) {
 
-		if(StringUtils.isBlank(user.getName()))
+		if (StringUtils.isBlank(user.getName()))
 			return false;
-		if(StringUtils.isBlank(user.getSurname()))
+		if (StringUtils.isBlank(user.getSurname()))
 			return false;
-		if(StringUtils.isBlank(user.getEmail()))
+		if (StringUtils.isBlank(user.getEmail()))
 			return false;
 		return true;
 	}
-
-
 
 }

@@ -123,6 +123,15 @@ insert into telefoni (idUtente, numero, tipo) values ('1', '1234567890', 'cell')
 insert into telefoni (idUtente, numero, tipo) values ('2', '3467457711', 'cell');
 insert into telefoni (idUtente, numero, tipo) values ('2', '0290600377', 'casa');
 insert into telefoni (idUtente, numero, tipo) values ('1', '3526272884', 'ufficio');
+insert into telefoni (idUtente, numero, tipo) values ('5', '3913893336', 'cell');
+insert into telefoni (idUtente, numero, tipo) values ('5', '2837593756', 'casa');
+insert into telefoni (idUtente, numero, tipo) values ('3', '3659481230', 'cell');
+insert into telefoni (idUtente, numero, tipo) values ('3', '3906947382', 'ufficio');
+insert into telefoni (idUtente, numero, tipo) values ('4', '3543210983', 'cell');
+insert into telefoni (idUtente, numero, tipo) values ('4', '3987254102', 'azienda');
+insert into telefoni (idUtente, numero, tipo) values ('4', '2049467385', 'ufficio');
+insert into telefoni (idUtente, numero, tipo) values ('5', '3929845691', 'lavoro');
+
 
 
 --Creazioe tabella noleggio
