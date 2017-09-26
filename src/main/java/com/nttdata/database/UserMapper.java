@@ -57,6 +57,8 @@ public interface UserMapper {
 				+ " upper(u.name) like upper('%'||#{query}||'%')"
 				+ " OR upper(u.surname) like upper('%'||#{query}||'%')"
 				+ " OR upper(i.citta) like upper('%'||#{query}||'%')"
+				+ " OR  (i.cap) like ('%'||#{query}||'%')"
+				+ " OR  (t.numero) like ('%'||#{query}||'%')"
 				+ " order by badgeId")
 	List<User> findByQuery(@Param("query") String query);
 
