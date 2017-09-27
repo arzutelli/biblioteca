@@ -67,6 +67,52 @@ public class UserControllerTest {
 		assertTrue(userGet.equals(user));
 		
 	}
+	
+	
+	
+	
+	@Test
+	public void testPut() {
+		String URL = baseUrl+"/user";
+		
+		RestTemplate restTemplate = new RestTemplate();
+		
+		User request = new User();
+		request.setSurname("Maynor");
+		request.setName("Arzù");
+		request.setEmail("maynor.arzu@nttdata.com");
+		request.setDataNascita(new Date());
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		HttpEntity<User> entity = new HttpEntity<User>(request ,headers);
+		
+		User user = restTemplate.postForObject(URL, entity , User.class);
+		
+		assertTrue(user!=null);
+		assertTrue(user.getBadgeId() != 0);
+		
+		user.setSurname("normay");
+		user.setName("zuar");
+		user.setEmail("zuar.normay@nttdata.com");
+		
+		HttpHeaders headersPut = new HttpHeaders();
+		headersPut.setContentType(MediaType.APPLICATION_JSON);
+		
+		HttpEntity<User> entityPut = new HttpEntity<User>(user ,headersPut);
+		
+		restTemplate.put(URL+"/"+user.getBadgeId(),  entityPut , User.class);
+		
+		User usernew = restTemplate.getForObject(URL+"/"+user.getBadgeId(), User.class);
+		assertTrue(usernew!=null);
+		
+		assertTrue(usernew.equals(user));
+		
+		
+	}
+	
+	
 
 	@Test
 	public void testDelete() {
