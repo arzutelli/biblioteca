@@ -2,6 +2,7 @@ package com.nttdata.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -14,6 +15,8 @@ public class User implements Serializable{
 	private String surname;
 	private String email;
 	private int badgeId;
+	
+	private List<Indirizzi> indirizzi;
 	
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")
 	private Date dataNascita;
@@ -63,6 +66,12 @@ public class User implements Serializable{
 	}
 	public void setDataNascita(Date dataNascita) {
 		this.dataNascita = dataNascita;
+	}
+	public List<Indirizzi> getIndirizzi() {
+		return indirizzi;
+	}
+	public void setIndirizzi(List<Indirizzi> indirizzi) {
+		this.indirizzi = indirizzi;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
