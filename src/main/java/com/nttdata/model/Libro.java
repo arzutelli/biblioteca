@@ -59,4 +59,56 @@ public class Libro implements Serializable {
 		return ToStringBuilder.reflectionToString(this);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((genere == null) ? 0 : genere.hashCode());
+		result = prime * result + idLibro;
+		result = prime * result + ((prezzo == null) ? 0 : prezzo.hashCode());
+		result = prime * result + ((scaffale == null) ? 0 : scaffale.hashCode());
+		result = prime * result + ((titolo == null) ? 0 : titolo.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Libro other = (Libro) obj;
+		if (genere == null) {
+			if (other.genere != null)
+				return false;
+		} else if (!genere.equals(other.genere))
+			return false;
+		if (idLibro != other.idLibro)
+			return false;
+		if (prezzo == null) {
+			if (other.prezzo != null)
+				return false;
+		} else if (!prezzo.equals(other.prezzo))
+			return false;
+		if (scaffale == null) {
+			if (other.scaffale != null)
+				return false;
+		} else if (!scaffale.equals(other.scaffale))
+			return false;
+		if (titolo == null) {
+			if (other.titolo != null)
+				return false;
+		} else if (!titolo.equals(other.titolo))
+			return false;
+		return true;
+	}
+
 }

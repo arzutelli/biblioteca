@@ -33,6 +33,7 @@ public interface UserMapper {
 	@Select("select * from users")
 	List<User> findAll();
 
+	
 	@Select("<script> select distinct u.* "
 			+ "from users u "
 				+ "left outer join Indirizzi i on i.idUtente = u.badgeId "
