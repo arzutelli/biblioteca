@@ -1,6 +1,8 @@
 package com.nttdata.controller;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.nttdata.database.UserMapper;
 import com.nttdata.exception.BadRequestException;
@@ -27,6 +30,8 @@ import com.nttdata.utils.Utils;
 @RestController
 public class UserController {
 
+	private static final String baseUrl = "http://localhost:8080";
+	
 	@Autowired
 	private UserMapper userMapper;
 
@@ -96,9 +101,16 @@ public class UserController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/user/{badgeId}")
 	public User get(@PathVariable(value = "badgeId", required = true) int badgeId) {
+		
+		
 		User user = userMapper.findByBadgeId(badgeId);
-
 		if (user != null) {
+			//recupero gli indirizzi utilizzando il servizio di get degli indirizzi di un utente
+			RestTemplate restTemplate = new RestTemplate();
+			String URL = MessageFormat.format("{0}/user/{1}/indirizzi", baseUrl,badgeId);
+			Indirizzi[] indirizzi = restTemplate.getForObject(URL, Indirizzi[].class);
+			user.setIndirizzi(Arrays.asList(indirizzi));
+
 			user.setEta(Utils.getEta(user.getDataNascita()));
 			return user;
 		}
