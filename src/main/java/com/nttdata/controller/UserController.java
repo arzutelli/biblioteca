@@ -1,6 +1,5 @@
 package com.nttdata.controller;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -99,11 +98,10 @@ public class UserController {
 	public User get(@PathVariable(value = "badgeId", required = true) int badgeId) {
 		User user = userMapper.findByBadgeId(badgeId);
 
-		User u = user;
-		u.setEta(Utils.getEta(u.getDataNascita()));
-
-		if (user != null)
+		if (user != null) {
+			user.setEta(Utils.getEta(user.getDataNascita()));
 			return user;
+		}
 		else
 			throw new ResourceNotFoundException();
 	}
