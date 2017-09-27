@@ -50,9 +50,9 @@ public class UserControllerTest {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		User request = new User();
-		request.setSurname("Giuseppe");
-		request.setName("Cuccia");
-		request.setEmail("giuseppe.cuccia@nttdata.com");
+		request.setSurname("Thomas");
+		request.setName("Loesch");
+		request.setEmail("thomas.loesch@nttdata.com");
 		request.setDataNascita(new Date());
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -64,7 +64,12 @@ public class UserControllerTest {
 		
 		assertTrue(user!=null);
 		assertTrue(user.getBadgeId() != 0);
-		
 		logger.debug(MessageFormat.format("URL {0}: result {1}",URL,user));
+		
+		User userGet = restTemplate.getForObject(URL+"/"+user.getBadgeId(), User.class);
+		assertTrue(userGet!=null);
+		
+		assertTrue(userGet.equals(user));
+		
 	}
 }
