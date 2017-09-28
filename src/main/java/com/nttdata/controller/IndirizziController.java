@@ -2,6 +2,7 @@ package com.nttdata.controller;
 
 import java.util.List;
 
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -98,6 +99,7 @@ public class IndirizziController {
 			return indirizzi;
 		}
 		
+		
 		@RequestMapping(method = RequestMethod.DELETE, value = "user/{badgeId}/indirizzi/{idIndirizzi}")
 		public void delete(@PathVariable(value = "idIndirizzi", required = true) int idIndirizzi, @PathVariable(value = "badgeId", required = true) int badgeId) {
 			Indirizzi foundIndirizzi = indirizziMapper.findByIdIndirizzi(idIndirizzi, badgeId);
@@ -105,7 +107,7 @@ public class IndirizziController {
 				throw new NoContentException();
 			indirizziMapper.delete(idIndirizzi);
 		}
-	
+
 		private boolean validateIndirizzi(Indirizzi indirizzi) {
 	    	
 			if(StringUtils.isBlank(indirizzi.getVia()))

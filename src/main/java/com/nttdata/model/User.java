@@ -18,6 +18,9 @@ public class User implements Serializable{
 	
 	private List<Indirizzi> indirizzi;
 	
+	private List<Telefoni> telefoni;
+	
+	//Gestisce il parsing e la stampa della data da e verso il contentuto di tipo stringa usando il pattern
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="CET")
 	private Date dataNascita;
 
@@ -48,11 +51,19 @@ public class User implements Serializable{
 		this.badgeId = badgeId;
 	}
 	
+	// effettua il toString tramite reflection su tutti i campi della classe
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return ToStringBuilder.reflectionToString(this); 
 	}
 
+	public List<Telefoni> getTelefoni() {
+		return telefoni;
+	}
+
+	public void setTelefoni(List<Telefoni> telefoni) {
+		this.telefoni = telefoni;
+	}
 	public int getEta() {
 		return eta;
 	}

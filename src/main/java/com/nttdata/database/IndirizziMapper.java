@@ -21,9 +21,11 @@ public interface IndirizziMapper {
 	@Insert("insert into Indirizzi (idUtente, via, citta, provincia, cap) values (#{idUtente},#{via}, #{citta}, #{provincia}, #{cap})")
 	@Options(useGeneratedKeys = true, keyProperty = "idIndirizzi")
 	int add(Indirizzi indirizzi);
-
+	
+	
 	@Delete("delete Indirizzi where idIndirizzi = #{idIndirizzi}")
 	int delete(@Param("idIndirizzi") int idIndirizzi);
+	
 
 	@Update("update Indirizzi set via = #{via},"
 			+ "citta = #{citta},"

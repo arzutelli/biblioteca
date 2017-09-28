@@ -13,14 +13,23 @@ import org.apache.ibatis.annotations.Update;
 
 import com.nttdata.model.User;
 
-@Mapper
+@Mapper // Marca l'interfaccia come un Mapper del framework Mybatis
 public interface UserMapper {
 
-	@Select("select * from users where badgeId = #{badgeId}")
-	User findByBadgeId(@Param("badgeId") int badgeId);
+	/*
+	 * @Pararm indica che la variabile badgeId sarà ignettata all'interno della query al posto della stringa #{badgeId}
+	 */
+	@Select("select * from users where badgeId = #{badgeId}") // annotazione per l'esecuzione di una select
+	User findByBadgeId(@Param("badgeId") int badgeId); 
 
+	/*
+	 * @Insert... utilizza come paramtri le variabili della classe User
+	 * @Option... indica che la property badgeId viene autogenerata dal database al momento dell'inserimento 
+	 * se non valorizzata. In piu' il valore verrà inserito all'interno dell'oggetto passato come parametro
+	 * nel campo badgeId
+	 */
 	@Insert("insert into users (name, surname, email,dataNascita) values (#{name},#{surname}, #{email},#{dataNascita})")
-	@Options(useGeneratedKeys = true, keyProperty = "badgeId")
+	@Options(useGeneratedKeys = true, keyProperty = "badgeId") 
 	int add(User user);
 
 	@Delete("delete users where badgeId = #{badgeId}")
@@ -33,7 +42,12 @@ public interface UserMapper {
 	@Select("select * from users")
 	List<User> findAll();
 
-	
+	/*
+	 * tramite <script> si indica che si tratta di una query dinamica.
+	 * verrà costruita a runtime sulla base delle clausole dei tag <if...>
+	 * 
+	 * <where> elimina in autonomia il primo AND che trova per fare in modo che la query sia corretta sintatticamente
+	 */
 	@Select("<script> select distinct u.* "
 			+ "from users u "
 				+ "left outer join Indirizzi i on i.idUtente = u.badgeId "
@@ -49,7 +63,6 @@ public interface UserMapper {
 			+ "</script>")
 	List<User> findByParams(Map<String, Object> params);
 
-	
 	@Select("select distinct u.* "
 			+ "from users u "
 				+ "left outer join Indirizzi i on i.idUtente = u.badgeId "
