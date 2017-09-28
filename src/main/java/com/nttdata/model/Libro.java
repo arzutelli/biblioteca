@@ -2,8 +2,10 @@ package com.nttdata.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
 
 public class Libro implements Serializable {
 
@@ -13,6 +15,19 @@ public class Libro implements Serializable {
 	private String genere;
 	private BigDecimal prezzo;
 	private String scaffale;
+	
+	private List<Autore> autore;
+	
+	
+
+
+	public List<Autore> getAutore() {
+		return autore;
+	}
+
+	public void setAutore(List<Autore> autore) {
+		this.autore = autore;
+	}
 
 	public int getIdLibro() {
 		return idLibro;

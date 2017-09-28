@@ -29,6 +29,7 @@ public class AutoreLibroController {
 	@Autowired
 	private LibroMapper libroMapper;
 
+	
 	@RequestMapping(method = RequestMethod.POST, value = "autore/{idAutore}/autoreLibro")
 	public AutoreLibro add(@RequestBody AutoreLibro autoreLibro,
 			@PathVariable(value = "idAutore", required = true) int idAutore,
