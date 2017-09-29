@@ -128,6 +128,27 @@ public class UserController {
 	}
 	
 	/**
+	 * ricerca con più nomi
+	 * @param nomi lista di nomi per la ricerca
+	 * @return la lista degli utenti corrispondenti al parametro di ricerca
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/user/multipleSearch")
+	public List<User> findMultiple(@RequestParam(value = "name", required = false) String[] names,
+			@RequestParam(value = "surname", required = false) String[] surnames){
+		
+		List<User> findAll = userMapper.findByMultiple(names, surnames);
+		
+		for (User u : findAll) {
+			u.setEta(Utils.getEta(u.getDataNascita()));
+		}
+		
+		if (findAll != null && findAll.isEmpty())
+			throw new ResourceNotFoundException();
+		
+		return findAll;
+	}
+	
+	/**
 	 * Metodo per il recupero di un utente specifico
 	 * @param badgeId identificativo dell'utente
 	 * @return l'utente corrispondente al badge id

@@ -76,4 +76,28 @@ public interface UserMapper {
 				+ " order by badgeId")
 	List<User> findByQuery(@Param("query") String query);
 
+	
+	@Select("<script>select distinct * "
+			+ "from users "
+			+ "<where> "
+				+ "<if test='nameList != null'>"
+					+ "name in "
+					+ "<foreach item='name' collection='nameList' separator=',' open='(' close=')'>"
+					+ " #{name} " 
+					+ "</foreach>"
+				+ "</if>"
+				+ "<if test='surnameList != null'>"
+				+ " Or "
+			+ "</if>"
+				+ "<if test='surnameList != null'>"
+						+ "surname in "
+						+ "<foreach item='surname' collection='surnameList' separator=',' open='(' close=')'>"
+						+ " #{surname}" 
+						+ "</foreach>"
+					+ "</if>"
+				+ "</where>"
+				+ " order by badgeId"
+				+ "</script>")
+	List<User> findByMultiple(@Param("nameList") String[] nameList, @Param("surnameList") String[] surnameList);
+
 }
